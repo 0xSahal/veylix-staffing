@@ -1,26 +1,165 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* ─── Font Variables ──────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-syne: 'Syne', sans-serif;
+  --font-inter: 'Inter', sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ─── Base Reset & Defaults ───────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  html {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: auto;
+    cursor: none;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #1e293b;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    html {
+      cursor: auto;
+    }
+  }
+
+  ::selection {
+    background-color: #2563eb;
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f5f7fa;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ─── Component Utilities ─────────────────────────────────────── */
+@layer components {
+  .container-vx {
+    @apply mx-auto w-full max-w-container px-6 lg:px-10 xl:px-[80px];
+  }
+
+  .section-vx {
+    @apply py-[72px] md:py-[96px] lg:py-[120px];
+  }
+
+  .heading-hero {
+    @apply font-display font-extrabold leading-[0.95] tracking-[-0.03em];
+    font-size: clamp(44px, 6vw, 80px);
+  }
+
+  .heading-h2 {
+    @apply font-display font-bold leading-[1.1] tracking-[-0.02em];
+    font-size: clamp(32px, 4vw, 52px);
+  }
+
+  .heading-h3 {
+    @apply font-display font-semibold leading-[1.2] tracking-[-0.01em];
+    font-size: clamp(24px, 2.5vw, 32px);
+  }
+
+  .section-label {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-vx-blue-lt px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-vx-blue;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn bg-vx-blue px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 ease-expo-out hover:bg-vx-blue-dark hover:shadow-glow-blue focus-visible:ring-2 focus-visible:ring-vx-blue focus-visible:ring-offset-2 active:scale-[0.97];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn border border-vx-border bg-transparent px-7 py-3.5 text-sm font-semibold text-vx-navy transition-all duration-300 ease-expo-out hover:border-vx-navy hover:bg-vx-off active:scale-[0.97];
+  }
+
+  .btn-ghost-white {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn border border-[rgba(255,255,255,0.25)] bg-transparent px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 ease-expo-out hover:border-[rgba(255,255,255,0.5)] hover:bg-[rgba(255,255,255,0.1)] active:scale-[0.97];
+  }
+}
+
+/* ─── Utilities ───────────────────────────────────────────────── */
+@layer utilities {
+  .text-gradient-blue {
+    background: linear-gradient(90deg, #38bdf8, #2563eb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-dark {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-light {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-select {
+    user-select: none;
+  }
 }
