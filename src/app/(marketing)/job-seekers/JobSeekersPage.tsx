@@ -478,10 +478,10 @@ export default function JobSeekersPage(): React.ReactNode {
             <p className="mb-6 font-body text-[12px] font-semibold uppercase tracking-[0.18em] text-[#60A5FA]">
               Get Started Today
             </p>
-            <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-white md:text-5xl">
+            <h2 className="mb-6 font-display text-3xl font-bold leading-tight text-white md:text-5xl">
               Ready to find your next role?
             </h2>
-            <p className="mb-10 font-body text-lg leading-relaxed text-[#94A3B8]">
+            <p className="mb-10 font-body text-base leading-relaxed text-[#94A3B8] md:text-lg">
               Share your background and we will match you with opportunities that fit your
               goals, not just your resume.
             </p>

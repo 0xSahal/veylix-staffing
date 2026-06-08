@@ -67,7 +67,7 @@ export default function IndustriesSection(): React.ReactNode {
     <div className="container-vx mb-12 text-center">
       <span className="section-label">INDUSTRIES</span>
       <h2 className="heading-h2 mt-4 text-vx-navy">Recruiters who know your field</h2>
-      <p className="mx-auto mt-4 max-w-full truncate font-body text-lg text-vx-muted sm:whitespace-nowrap">
+      <p className="mx-auto mt-4 max-w-xl font-body text-base leading-relaxed text-vx-muted sm:whitespace-nowrap sm:text-lg">
         Your recruiter has hired in your space before. That saves you weeks of explaining
         the basics.
       </p>
@@ -146,7 +146,7 @@ function IndustryCard({
         }}
       />
       <div className="absolute inset-0 rounded-card-lg opacity-0 ring-2 ring-vx-blue transition-opacity duration-300 group-hover:opacity-100" />
-      <div className="absolute bottom-0 left-0 right-0 p-7">
+      <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-7">
         <span className="text-[10px] font-semibold uppercase tracking-widest text-white/40">
           {card.number}
         </span>

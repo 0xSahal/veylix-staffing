@@ -90,8 +90,8 @@ export default function Footer(): React.ReactNode {
       </div>
 
       <div className="bg-[#f8f9fc] px-6 py-16 md:px-12 lg:px-[120px] lg:py-20">
-        <div className="grid grid-cols-2 gap-10 lg:grid-cols-4 lg:gap-12">
-          <div className="col-span-2 sm:col-span-1 lg:col-span-1">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+          <div className="sm:col-span-1 lg:col-span-1">
             <Link href="/" aria-label={siteConfig.name} className="inline-flex">
               <VeylixLogo variant="footer" />
             </Link>

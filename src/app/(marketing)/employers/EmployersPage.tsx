@@ -150,7 +150,7 @@ export default function EmployersPage(): React.ReactNode {
   return (
     <main ref={containerRef}>
       {/* Section 1: Page Header */}
-      <section className="relative flex min-h-[400px] items-center justify-center overflow-hidden md:min-h-[440px]">
+      <section className="relative flex min-h-[300px] items-center justify-center overflow-hidden md:min-h-[440px]">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/about-sitting-group.webp"
@@ -173,7 +173,7 @@ export default function EmployersPage(): React.ReactNode {
           <div className="employers-heading mx-auto flex max-w-2xl flex-col items-center text-center">
             <nav
               aria-label="Breadcrumb"
-              className="mb-7 flex items-center gap-2 font-body text-[13px] font-medium text-white/50"
+              className="mb-7 flex flex-wrap items-center justify-center gap-2 font-body text-[13px] font-medium text-white/50"
             >
               <Link href={routes.home} className="transition-colors hover:text-white/80">
                 Home
@@ -186,7 +186,7 @@ export default function EmployersPage(): React.ReactNode {
               For Employers
             </p>
 
-            <h1 className="mb-5 font-display text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl">
+            <h1 className="mb-5 font-display text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl">
               Your Staffing Needs are Unique and Always Evolving
             </h1>
 
@@ -204,7 +204,7 @@ export default function EmployersPage(): React.ReactNode {
             <p className="mb-4 font-body text-[12px] font-semibold uppercase tracking-[0.18em] text-[#1A6EDC]">
               Partner With Us
             </p>
-            <h2 className="mb-5 font-display text-4xl font-bold leading-tight text-[#0F2246] md:text-5xl">
+            <h2 className="mb-5 font-display text-3xl font-bold leading-tight text-[#0F2246] md:text-5xl">
               Improve Your Hiring Strategies
             </h2>
             <p className="font-body text-base leading-relaxed text-[#64748B] md:text-lg">
@@ -246,7 +246,7 @@ export default function EmployersPage(): React.ReactNode {
             <p className="mb-4 font-body text-[12px] font-semibold uppercase tracking-[0.18em] text-[#1A6EDC]">
               How It Works
             </p>
-            <h2 className="font-display text-4xl font-bold leading-tight text-[#0F2246] md:text-5xl">
+            <h2 className="font-display text-3xl font-bold leading-tight text-[#0F2246] md:text-5xl">
               Three steps to your next hire
             </h2>
           </div>
@@ -295,7 +295,7 @@ export default function EmployersPage(): React.ReactNode {
             <p className="mb-4 font-body text-[12px] font-semibold uppercase tracking-[0.18em] text-[#1A6EDC]">
               Why Choose Us
             </p>
-            <h2 className="font-display text-4xl font-bold leading-tight text-[#0F2246] md:text-5xl">
+            <h2 className="font-display text-3xl font-bold leading-tight text-[#0F2246] md:text-5xl">
               Why Employers Choose Us
             </h2>
           </div>
@@ -332,7 +332,7 @@ export default function EmployersPage(): React.ReactNode {
               <p className="mb-4 font-body text-[12px] font-semibold uppercase tracking-[0.18em] text-[#1A6EDC]">
                 Our Services
               </p>
-              <h2 className="max-w-md font-display text-4xl font-bold leading-tight text-[#0F2246] md:text-5xl">
+              <h2 className="max-w-md font-display text-3xl font-bold leading-tight text-[#0F2246] md:text-5xl">
                 Solutions We Offer
               </h2>
             </div>
@@ -381,7 +381,7 @@ export default function EmployersPage(): React.ReactNode {
               <p className="mb-3 font-body text-[12px] font-semibold uppercase tracking-[0.18em] text-[#1A6EDC]">
                 From Our Blog
               </p>
-              <h2 className="font-display text-4xl font-bold text-[#0F2246]">
+              <h2 className="font-display text-3xl font-bold text-[#0F2246] lg:text-4xl">
                 Featured Insights
               </h2>
             </div>
@@ -449,7 +449,7 @@ export default function EmployersPage(): React.ReactNode {
             <p className="mb-6 font-body text-[12px] font-semibold uppercase tracking-[0.18em] text-[#60A5FA]">
               Get Started Today
             </p>
-            <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-white md:text-5xl">
+            <h2 className="mb-6 font-display text-3xl font-bold leading-tight text-white md:text-5xl">
               Ready to fill your next role?
             </h2>
             <p className="mb-10 font-body text-lg leading-relaxed text-[#94A3B8]">

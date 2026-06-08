@@ -63,7 +63,7 @@ function TestimonialCard({
           &ldquo;
         </span>
       </div>
-      <span className="mt-3 inline-flex rounded-full bg-vx-blue-lt px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest text-vx-blue">
+      <span className="mt-3 inline-flex max-w-full flex-wrap rounded-full bg-vx-blue-lt px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-vx-blue sm:text-[11px] sm:tracking-widest">
         {item.result}
       </span>
       <p className="mt-3 font-body text-sm italic leading-relaxed text-vx-body sm:text-[15px]">
