@@ -133,10 +133,7 @@ export default function HeroSection(): React.ReactNode {
                 className="text-white"
                 delay={0.25}
               />
-              <span className="mr-[0.25em]" aria-hidden="true">
-                {' '}
-              </span>
-              <SplitText text="Empires" className="text-gradient-blue" delay={0.42} />
+              <SplitText text="Empires" wordClassName="text-gradient-blue" delay={0.42} />
             </span>
             <SplitText
               text="Not Just Teams."

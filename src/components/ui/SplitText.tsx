@@ -13,6 +13,7 @@ const WORD_STAGGER_S = 0.08
 type SplitTextProps = {
   text: string
   className?: string
+  wordClassName?: string
   delay?: number
 }
 
@@ -39,6 +40,7 @@ function buildWordSegments(value: string): WordSegment[] {
 export default function SplitText({
   text,
   className,
+  wordClassName,
   delay = 0,
 }: SplitTextProps): React.ReactNode {
   const { ref, isInView } = useInViewAnimation({ threshold: 0.3, once: true })
@@ -51,7 +53,7 @@ export default function SplitText({
       {segments.map((segment) => (
         <span key={segment.key} className="mr-[0.25em] inline-block overflow-hidden">
           <m.span
-            className="inline-block"
+            className={cn('inline-block', wordClassName)}
             initial={prefersReduced ? false : { y: '110%', opacity: 0 }}
             animate={shouldAnimate ? { y: 0, opacity: 1 } : { y: '110%', opacity: 0 }}
             transition={{

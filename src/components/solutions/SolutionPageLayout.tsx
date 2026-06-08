@@ -220,7 +220,7 @@ function SolutionHero({ solution }: SolutionProp): React.ReactNode {
 
 function SolutionOverview({ solution }: SolutionProp): React.ReactNode {
   return (
-    <section className="bg-white py-20">
+    <section className="bg-white py-16 lg:py-20">
       <Container>
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_320px]">
           <div className="solution-heading">
@@ -236,17 +236,17 @@ function SolutionOverview({ solution }: SolutionProp): React.ReactNode {
               {solution.overviewBody}
             </p>
 
-            <div className="solution-stats-row grid grid-cols-3">
+            <div className="solution-stats-row grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-0">
               {solution.stats.map((stat, i) => (
                 <div
                   key={stat.label}
                   className={cn(
-                    'solution-stat flex flex-col items-center px-4 py-10 text-center sm:px-6',
-                    i === 0 && 'border-l-2 border-[#1A6EDC]',
-                    i < solution.stats.length - 1 && 'border-r border-[#E2E8F0]'
+                    'solution-stat flex flex-col items-center px-4 py-6 text-center sm:px-6 sm:py-10',
+                    i === 0 && 'sm:border-l-2 sm:border-[#1A6EDC]',
+                    i < solution.stats.length - 1 && 'sm:border-r sm:border-[#E2E8F0]'
                   )}
                 >
-                  <span className="mb-2 font-display text-5xl font-extrabold leading-none text-[#0F2246] md:text-6xl">
+                  <span className="mb-2 font-display text-4xl font-extrabold leading-none text-[#0F2246] sm:text-5xl md:text-6xl">
                     {stat.number}
                   </span>
                   <span className="max-w-[120px] font-body text-xs font-medium leading-snug text-[#64748B] md:text-sm">
@@ -374,7 +374,7 @@ function SolutionRoles({ solution }: SolutionProp): React.ReactNode {
   if (!solution.roleCategories.length) return null
 
   return (
-    <section className="bg-[#F8FAFC] py-24">
+    <section className="bg-[#F8FAFC] py-16 lg:py-24">
       <Container>
         <div className="solution-heading mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
@@ -424,7 +424,7 @@ function SolutionRoles({ solution }: SolutionProp): React.ReactNode {
 
 function SolutionProcess({ solution }: SolutionProp): React.ReactNode {
   return (
-    <section className="bg-white py-24">
+    <section className="bg-white py-16 lg:py-24">
       <Container>
         <div className="solution-heading mb-20 max-w-xl">
           <p className="mb-4 font-body text-[12px] font-bold uppercase tracking-[0.18em] text-[#1A6EDC]">
@@ -475,7 +475,7 @@ function SolutionEngagementModels({ solution }: SolutionProp): React.ReactNode {
   if (!solution.engagementModels.length) return null
 
   return (
-    <section className="bg-[#F8FAFC] py-24">
+    <section className="bg-[#F8FAFC] py-16 lg:py-24">
       <Container>
         <div className="solution-heading mb-14 max-w-xl">
           <p className="mb-4 font-body text-[12px] font-bold uppercase tracking-[0.18em] text-[#1A6EDC]">
@@ -524,7 +524,7 @@ function SolutionEngagementModels({ solution }: SolutionProp): React.ReactNode {
 
 function SolutionAdvantages({ solution }: SolutionProp): React.ReactNode {
   return (
-    <section className="bg-white py-24">
+    <section className="bg-white py-16 lg:py-24">
       <Container>
         <div className="solution-heading mb-14 flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div>
@@ -568,7 +568,7 @@ function SolutionFAQ({ solution }: SolutionProp): React.ReactNode {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section className="bg-[#F8FAFC] py-24">
+    <section className="bg-[#F8FAFC] py-16 lg:py-24">
       <Container>
         <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-[380px_1fr]">
           <div className="solution-heading">
@@ -646,7 +646,10 @@ function SolutionFAQ({ solution }: SolutionProp): React.ReactNode {
 
 function SolutionCTA({ solution }: SolutionProp): React.ReactNode {
   return (
-    <section className="relative overflow-hidden py-28" style={{ backgroundColor: NAVY }}>
+    <section
+      className="relative overflow-hidden py-20 lg:py-28"
+      style={{ backgroundColor: NAVY }}
+    >
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute left-1/2 top-1/2 h-[300px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#1A6EDC]/10 blur-3xl" />
       </div>

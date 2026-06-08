@@ -10,6 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import MagneticButton from '@/components/ui/MagneticButton'
 import SplitText from '@/components/ui/SplitText'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 const PARALLAX_Y = -60
@@ -28,6 +29,7 @@ export default function DualCTASection(): React.ReactNode {
   const leftRef = useRef<HTMLDivElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
   const prefersReduced = usePrefersReducedMotion()
+  const isDesktop = useMediaQuery('(min-width: 1024px)')
 
   useEffect(() => {
     if (prefersReduced) return
@@ -57,8 +59,10 @@ export default function DualCTASection(): React.ReactNode {
       <m.div
         ref={leftRef}
         className="dual-cta-left relative min-h-[60vh] w-full overflow-hidden py-16 lg:h-screen lg:w-1/2 lg:py-0"
-        initial={prefersReduced ? false : { opacity: 0, x: -60 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        initial={
+          prefersReduced ? false : { opacity: 0, ...(isDesktop ? { x: -60 } : { y: 40 }) }
+        }
+        whileInView={{ opacity: 1, x: 0, y: 0 }}
         viewport={{ once: true, amount: 0.75 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
@@ -117,8 +121,10 @@ export default function DualCTASection(): React.ReactNode {
 
       <m.div
         className="dual-cta-right relative min-h-[60vh] w-full overflow-hidden py-16 lg:h-screen lg:w-1/2 lg:py-0"
-        initial={prefersReduced ? false : { opacity: 0, x: 60 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        initial={
+          prefersReduced ? false : { opacity: 0, ...(isDesktop ? { x: 60 } : { y: 40 }) }
+        }
+        whileInView={{ opacity: 1, x: 0, y: 0 }}
         viewport={{ once: true, amount: 0.75 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >

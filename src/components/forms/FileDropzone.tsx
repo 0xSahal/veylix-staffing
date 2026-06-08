@@ -63,7 +63,9 @@ export default function FileDropzone({
         <Upload size={28} className="text-vx-muted" />
         <span className="mt-3 text-center font-body text-sm text-vx-muted">{label}</span>
         {fileName && (
-          <span className="mt-2 text-sm font-medium text-vx-blue">{fileName}</span>
+          <span className="mt-2 max-w-full truncate px-2 text-center text-sm font-medium text-vx-blue">
+            {fileName}
+          </span>
         )}
         <input type="file" accept={ACCEPT} className="sr-only" onChange={handleChange} />
       </label>

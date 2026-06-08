@@ -59,6 +59,15 @@ export default function FAQSection(): React.ReactNode {
         </div>
 
         <div>
+          <div className="mb-8 lg:hidden">
+            <span className="section-label">FAQ</span>
+            <h2 className="heading-h2 mt-4 leading-tight text-vx-navy">
+              Questions people actually ask us.
+            </h2>
+            <p className="mt-4 font-body text-base leading-relaxed text-vx-muted">
+              If something isn&apos;t covered here, just call us. We pick up.
+            </p>
+          </div>
           {FAQ_ITEMS.map((item, index) => {
             const isOpen = openIndex === index
             return (

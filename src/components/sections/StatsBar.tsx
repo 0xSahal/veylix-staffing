@@ -23,7 +23,7 @@ export default function StatsBar(): React.ReactNode {
           {STATS.map((stat, index) => (
             <m.div
               key={stat.label}
-              className="flex min-w-0 flex-col items-center justify-center overflow-hidden bg-white p-6 text-center"
+              className="flex min-w-0 flex-col items-center justify-center overflow-hidden bg-white p-4 text-center sm:p-6"
               initial={prefersReduced ? false : { opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ delay: index * STAGGER_S, duration: 0.6 }}
@@ -34,7 +34,7 @@ export default function StatsBar(): React.ReactNode {
                 animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
                 transition={{ delay: index * STAGGER_S + 0.1, duration: 0.5 }}
               />
-              <p className="whitespace-nowrap font-display text-4xl font-extrabold text-vx-navy sm:text-5xl">
+              <p className="font-display text-3xl font-extrabold text-vx-navy sm:whitespace-nowrap sm:text-5xl">
                 <AnimatedCounter
                   end={stat.end}
                   suffix={stat.suffix}

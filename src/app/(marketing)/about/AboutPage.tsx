@@ -351,12 +351,12 @@ export default function AboutPage(): React.ReactNode {
             backgroundSize: '28px 28px',
           }}
         />
-        <div className="container-vx relative z-10 pb-[100px] pt-[120px] md:min-h-[28rem]">
+        <div className="container-vx relative z-10 pb-16 pt-24 md:min-h-[28rem] md:pb-[100px] md:pt-[120px]">
           <div data-animate="opener" className="relative z-10 w-full md:w-[55%]">
             <p className="font-display text-[11px] font-bold uppercase tracking-[0.15em] text-[#1A6EDC]">
               About Veylix Staffing
             </p>
-            <h1 className="mt-6 font-display text-[40px] font-extrabold leading-[1.1] text-[#0F2246] md:text-[4.5rem]">
+            <h1 className="mt-6 font-display text-[32px] font-extrabold leading-[1.1] text-[#0F2246] sm:text-[40px] md:text-[4.5rem]">
               Staffing built on expertise,{' '}
               <span className="italic text-[#1A6EDC]">not just availability.</span>
             </h1>
@@ -407,13 +407,13 @@ export default function AboutPage(): React.ReactNode {
       </section>
 
       {/* Section 3: Our Story */}
-      <section className="bg-white py-[100px]">
+      <section className="bg-white py-16 lg:py-[100px]">
         <Container className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-20">
           <div data-animate="story-text">
             <p className="font-body text-[11px] font-medium uppercase tracking-[0.12em] text-[#1A6EDC]">
               Our Story
             </p>
-            <h2 className="mt-4 font-display text-[40px] font-bold leading-[1.2] text-[#0F2246]">
+            <h2 className="mt-4 font-display text-[28px] font-bold leading-[1.2] text-[#0F2246] sm:text-[36px] lg:text-[40px]">
               We don&apos;t just fill roles.
               <br />
               We build teams that last.
@@ -469,7 +469,7 @@ export default function AboutPage(): React.ReactNode {
                   index < STATS.length - 1 && 'lg:border-r lg:border-[#CBD5E1]'
                 )}
               >
-                <p className="font-display text-[52px] font-extrabold leading-none text-[#0F2246] md:text-[64px]">
+                <p className="font-display text-[40px] font-extrabold leading-none text-[#0F2246] sm:text-[52px] md:text-[64px]">
                   <AnimatedCounter end={stat.value} suffix={stat.suffix} duration={2} />
                 </p>
                 <div className="mx-auto my-3 h-0.5 w-6 bg-[#1A6EDC]" aria-hidden />
@@ -483,7 +483,7 @@ export default function AboutPage(): React.ReactNode {
       </section>
 
       {/* Section 5: What We Believe */}
-      <section className="bg-white py-[100px]">
+      <section className="bg-white py-16 lg:py-[100px]">
         <Container className="flex flex-col gap-12 md:flex-row md:gap-16">
           <div className="md:sticky md:top-28 md:w-[35%] md:self-start">
             <p className="font-body text-[11px] font-medium uppercase tracking-[0.12em] text-[#1A6EDC]">
@@ -531,7 +531,7 @@ export default function AboutPage(): React.ReactNode {
           </p>
           <h2
             data-animate="mission-headline"
-            className="mx-auto mt-6 max-w-[700px] font-display text-[44px] font-bold leading-[1.2] text-white"
+            className="mx-auto mt-6 max-w-[700px] font-display text-[30px] font-bold leading-[1.2] text-white sm:text-[38px] lg:text-[44px]"
           >
             Connect outstanding talent with teams that deserve them.
           </h2>
@@ -571,12 +571,12 @@ export default function AboutPage(): React.ReactNode {
       </section>
 
       {/* Section 7: The Veylix Difference */}
-      <section className="bg-[#F8FAFC] py-[100px]">
+      <section className="bg-[#F8FAFC] py-16 lg:py-[100px]">
         <Container>
           <p className="font-body text-[11px] font-medium uppercase tracking-[0.12em] text-[#1A6EDC]">
             Why Choose Us
           </p>
-          <h2 className="mt-4 font-display text-[40px] font-bold text-[#0F2246]">
+          <h2 className="mt-4 font-display text-[28px] font-bold text-[#0F2246] sm:text-[36px] lg:text-[40px]">
             The Veylix difference.
           </h2>
           <div
@@ -611,7 +611,7 @@ export default function AboutPage(): React.ReactNode {
       </section>
 
       {/* Section 8: Team Teaser */}
-      <section className="bg-white py-[100px]">
+      <section className="bg-white py-16 lg:py-[100px]">
         <Container className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
           <div data-animate="team-image">
             <div className="relative aspect-[3/4] max-h-[400px] w-full overflow-hidden rounded-xl shadow-lg md:max-h-none">
@@ -628,7 +628,7 @@ export default function AboutPage(): React.ReactNode {
             <p className="font-body text-[11px] font-medium uppercase tracking-[0.12em] text-[#1A6EDC]">
               The People Behind Veylix
             </p>
-            <h2 className="mt-4 font-display text-4xl font-bold leading-[1.2] text-[#0F2246]">
+            <h2 className="mt-4 font-display text-3xl font-bold leading-[1.2] text-[#0F2246] md:text-4xl">
               Recruiters who&apos;ve worked in your industry.
             </h2>
             <p className="mt-5 font-body text-base leading-[1.8] text-[#475569]">
@@ -656,10 +656,10 @@ export default function AboutPage(): React.ReactNode {
       </section>
 
       {/* Section 9: Closing CTA */}
-      <section className="bg-[#0F2246] py-28">
+      <section className="bg-[#0F2246] py-20 lg:py-28">
         <Container>
           <div data-animate="closing-cta" className="mx-auto max-w-3xl text-center">
-            <h2 className="font-display text-4xl font-bold text-white md:text-5xl">
+            <h2 className="font-display text-3xl font-bold text-white md:text-5xl">
               Ready to work with a firm that takes the right hire seriously?
             </h2>
             <p className="mt-5 font-body text-base text-[#CBD5E1]">

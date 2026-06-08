@@ -39,7 +39,7 @@ export default function StepIndicator({
             <div className="flex flex-col items-center gap-2">
               <div
                 className={cn(
-                  'flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold transition-all duration-300',
+                  'flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold transition-all duration-300 sm:h-9 sm:w-9 sm:text-sm',
                   circleClass(currentStep, s.number)
                 )}
               >
@@ -51,7 +51,7 @@ export default function StepIndicator({
               </div>
               <span
                 className={cn(
-                  'hidden whitespace-nowrap text-[11px] font-semibold tracking-wide sm:block',
+                  'block max-w-[3.5rem] text-center text-[9px] font-semibold leading-tight tracking-wide sm:max-w-none sm:whitespace-nowrap sm:text-[11px]',
                   labelClass(currentStep, s.number)
                 )}
               >
@@ -62,7 +62,7 @@ export default function StepIndicator({
             {index < STEPS.length - 1 && (
               <div
                 className={cn(
-                  'mx-3 h-[2px] flex-1 rounded-full transition-all duration-500',
+                  'mx-1.5 h-[2px] flex-1 rounded-full transition-all duration-500 sm:mx-3',
                   currentStep > s.number ? 'bg-vx-navy' : 'bg-vx-border'
                 )}
               />

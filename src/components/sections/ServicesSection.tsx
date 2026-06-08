@@ -100,7 +100,7 @@ function ServiceCard({
 function FeatureCard(): React.ReactNode {
   return (
     <div
-      className="relative flex h-full min-h-[420px] flex-col justify-between overflow-hidden rounded-card border border-white/[0.06] p-10"
+      className="relative flex h-full min-h-[420px] flex-col justify-between overflow-hidden rounded-card border border-white/[0.06] p-6 sm:p-10"
       style={{
         background: 'linear-gradient(160deg, #060E1F 0%, #0D2456 60%, #060E1F 100%)',
       }}
@@ -152,7 +152,7 @@ function FeatureCard(): React.ReactNode {
       </div>
       <MagneticButton
         href="/contact"
-        className="mt-8 rounded-btn bg-white px-6 py-3 font-semibold text-vx-navy transition-colors duration-300 hover:bg-vx-blue hover:text-white"
+        className="mt-8 w-full justify-center rounded-btn bg-white px-4 py-3 text-sm font-semibold text-vx-navy transition-colors duration-300 hover:bg-vx-blue hover:text-white sm:w-auto sm:px-6 sm:text-base"
       >
         Book a Strategy Call →
       </MagneticButton>

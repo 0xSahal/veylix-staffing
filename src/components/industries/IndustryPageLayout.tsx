@@ -182,7 +182,7 @@ function IndustryIntro({ industry }: IndustryProp): React.ReactNode {
                 Roles We Commonly Place
               </p>
 
-              <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+              <div className="grid grid-cols-1 gap-y-3 sm:grid-cols-2 sm:gap-x-8">
                 {quickRoles.map(({ key, role }) => (
                   <div
                     key={key}
@@ -321,7 +321,10 @@ function OtherIndustriesStrip({ current }: { current: string }): React.ReactNode
 
 function IndustryCTA({ industry }: IndustryProp): React.ReactNode {
   return (
-    <section className="relative overflow-hidden py-28" style={{ backgroundColor: NAVY }}>
+    <section
+      className="relative overflow-hidden py-20 lg:py-28"
+      style={{ backgroundColor: NAVY }}
+    >
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute left-1/2 top-1/2 h-[300px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#1A6EDC]/10 blur-3xl" />
       </div>

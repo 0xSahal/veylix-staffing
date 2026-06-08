@@ -62,7 +62,7 @@ export default function AnnouncementBar(): React.ReactNode {
         background: 'linear-gradient(90deg, #060E1F 0%, #1E3A5F 50%, #060E1F 100%)',
       }}
     >
-      <div className="relative flex h-11 items-center justify-center overflow-hidden px-12">
+      <div className="relative flex h-11 items-center justify-center overflow-hidden px-10 sm:px-12">
         <AnimatePresence mode="wait">
           <m.p
             key={messageIndex}
