@@ -1,3 +1,8 @@
+import FloatingContactButton from '@/components/layout/FloatingContactButton'
+import AnnouncementBar from '@/components/sections/AnnouncementBar'
+import Footer from '@/components/sections/Footer'
+import Navbar from '@/components/sections/Navbar'
+
 type MarketingLayoutProps = {
   children: React.ReactNode
 }
@@ -5,5 +10,13 @@ type MarketingLayoutProps = {
 export default function MarketingLayout({
   children,
 }: MarketingLayoutProps): React.ReactNode {
-  return children
+  return (
+    <>
+      <AnnouncementBar />
+      <Navbar />
+      {children}
+      <Footer />
+      <FloatingContactButton />
+    </>
+  )
 }

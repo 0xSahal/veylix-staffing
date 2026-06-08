@@ -1,0 +1,85 @@
+import {
+  Award,
+  BarChart3,
+  BookOpen,
+  Briefcase,
+  Building2,
+  Calculator,
+  Clock,
+  Code2,
+  Compass,
+  Cpu,
+  Crown,
+  Database,
+  DollarSign,
+  FileCheck,
+  Gauge,
+  Globe,
+  GraduationCap,
+  Headphones,
+  Landmark,
+  Layers,
+  LineChart,
+  Megaphone,
+  Network,
+  Receipt,
+  RefreshCw,
+  Scale,
+  Search,
+  Server,
+  ShieldCheck,
+  Target,
+  TrendingUp,
+  UserCheck,
+  Users,
+  Wallet,
+  type LucideIcon,
+} from 'lucide-react'
+
+const iconMap: Record<string, LucideIcon> = {
+  Award,
+  BarChart3,
+  BookOpen,
+  Briefcase,
+  Building2,
+  Calculator,
+  Clock,
+  Code2,
+  Compass,
+  Cpu,
+  Crown,
+  Database,
+  DollarSign,
+  FileCheck,
+  Gauge,
+  Globe,
+  GraduationCap,
+  Headphones,
+  Landmark,
+  Layers,
+  LineChart,
+  Megaphone,
+  Network,
+  Receipt,
+  RefreshCw,
+  Scale,
+  Search,
+  Server,
+  ShieldCheck,
+  Target,
+  TrendingUp,
+  UserCheck,
+  Users,
+  Wallet,
+}
+
+type DynamicIconProps = {
+  name: string
+  className?: string
+}
+
+export function DynamicIcon({ name, className }: DynamicIconProps): React.ReactNode {
+  const Icon = iconMap[name]
+  if (!Icon) return null
+  return <Icon className={className} aria-hidden />
+}

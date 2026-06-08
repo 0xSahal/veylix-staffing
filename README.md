@@ -1,4 +1,4 @@
-# Veylix Staffing — Web Platform
+# Veylix Staffing: Web Platform
 
 Premium staffing agency website built with Next.js 16, TypeScript, Tailwind CSS,
 Framer Motion, and GSAP.

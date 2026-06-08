@@ -27,6 +27,7 @@ const config: Config = {
       },
       fontFamily: {
         display: ['var(--font-syne)', 'sans-serif'],
+        hero: ['var(--font-hero)', 'var(--font-syne)', 'sans-serif'],
         body: ['var(--font-inter)', 'sans-serif'],
       },
       fontSize: {

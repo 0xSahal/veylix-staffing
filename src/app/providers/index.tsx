@@ -1,4 +1,5 @@
 import { LenisProvider } from './LenisProvider'
+import { MotionProvider } from './MotionProvider'
 import { PageTransition } from './PageTransition'
 
 type ProvidersProps = {
@@ -13,4 +14,4 @@ export function Providers({ children }: ProvidersProps): React.ReactNode {
   )
 }
 
-export { LenisProvider, PageTransition }
+export { LenisProvider, PageTransition, MotionProvider }

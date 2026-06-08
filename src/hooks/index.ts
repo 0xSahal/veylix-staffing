@@ -1,4 +1,6 @@
 export { useInViewAnimation } from './useInViewAnimation'
 export { useMediaQuery } from './useMediaQuery'
 export { useMounted } from './useMounted'
+export { usePrefersReducedMotion } from './usePrefersReducedMotion'
+export { useScrolled } from './useScrolled'
 export { useScrollProgress } from './useScrollProgress'

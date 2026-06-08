@@ -1,0 +1,9 @@
+export const CURSOR_LERP_FACTOR = 0.12
+export const CURSOR_RING_SIZE_PX = 40
+export const CURSOR_RING_HOVER_SIZE_PX = 64
+export const CURSOR_RING_VIEW_SIZE_PX = 80
+export const CURSOR_DOT_SIZE_PX = 6
+export const CURSOR_RING_BORDER_PX = 1.5
+export const CURSOR_SCALE_TRANSITION_MS = 300
+export const CURSOR_DOT_SCALE_DOWN = 0.7
+export const CURSOR_RING_SCALE_DOWN = 0.9

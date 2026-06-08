@@ -1,4 +1,4 @@
-# Veylix Staffing — Project Setup Documentation
+# Veylix Staffing: Project Setup Documentation
 
 This document records every decision made during the production-grade project
 foundation setup for **veylix-staffing**.
@@ -119,8 +119,8 @@ rule from `eslint-config-next`.
 
 ### Environment variables
 
-- `.env.local` — local dev secrets (gitignored)
-- `.env.example` — committed template for onboarding
+- `.env.local`: local dev secrets (gitignored)
+- `.env.example`: committed template for onboarding
 - `.gitignore` updated to ignore `.env.local`, `.env.production`, `.env.*.local`
   while allowing `.env.example`
 
@@ -168,7 +168,7 @@ src/
 └── utils/                    # Convenience re-exports (cn)
 ```
 
-All component and section files are **empty shells** (`return null`) — ready for
+All component and section files are **empty shells** (`return null`), ready for
 Phase 2 homepage development. No UI logic has been implemented.
 
 ---
@@ -179,9 +179,9 @@ Phase 2 homepage development. No UI logic has been implemented.
 | ----------- | ------------------------------------------ |
 | `main`      | Production (protected, PR required)        |
 | `develop`   | Integration branch (current active branch) |
-| `feature/*` | New features — branch from `develop`       |
-| `fix/*`     | Bug fixes — branch from `develop`          |
-| `chore/*`   | Maintenance — branch from `develop`        |
+| `feature/*` | New features, branch from `develop`        |
+| `fix/*`     | Bug fixes, branch from `develop`           |
+| `chore/*`   | Maintenance, branch from `develop`         |
 
 ### Husky hooks
 
@@ -231,7 +231,7 @@ Allowed types: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `perf`,
 
 ### Recommended VS Code extensions
 
-See `.vscode/extensions.json` — Prettier, ESLint, Tailwind CSS IntelliSense,
+See `.vscode/extensions.json`: Prettier, ESLint, Tailwind CSS IntelliSense,
 Error Lens, and others.
 
 ---
@@ -251,7 +251,7 @@ All checks passed at setup completion:
 
 ---
 
-## 9. Next Steps — Phase 2: Homepage Development
+## 9. Next Steps: Phase 2 Homepage Development
 
 1. Implement `Navbar`, `HeroSection`, and remaining section components
 2. Wire sections into `src/app/(marketing)/page.tsx`

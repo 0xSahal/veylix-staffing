@@ -6,6 +6,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig: NextConfig = {
   images: {
+    qualities: [75, 90],
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
@@ -20,6 +21,18 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.pravatar.cc',
+        port: '',
+        pathname: '/**',
+      },
     ],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -29,6 +42,14 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+
+  async redirects() {
+    return [
+      { source: '/candidates', destination: '/job-seekers', permanent: true },
+      { source: '/services', destination: '/employers', permanent: true },
+      { source: '/how-it-works', destination: '/employers', permanent: true },
+    ]
+  },
 
   async headers() {
     return [

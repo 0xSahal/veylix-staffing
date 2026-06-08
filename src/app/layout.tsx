@@ -1,6 +1,7 @@
 import { Providers } from '@/app/providers'
+import { MotionProvider } from '@/app/providers/MotionProvider'
 import { siteConfig } from '@/config/site'
-import { inter, syne } from '@/styles/fonts'
+import { instrumentSans, inter, syne } from '@/styles/fonts'
 
 import type { Metadata } from 'next'
 
@@ -21,9 +22,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>): React.ReactNode {
   return (
-    <html lang="en" className={`${inter.variable} ${syne.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${syne.variable} ${instrumentSans.variable}`}
+    >
       <body>
-        <Providers>{children}</Providers>
+        <MotionProvider>
+          <Providers>{children}</Providers>
+        </MotionProvider>
       </body>
     </html>
   )
