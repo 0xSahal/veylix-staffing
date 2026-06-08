@@ -24,7 +24,6 @@ export default function SolutionPageTemplate({
       <PageHero
         title={data.title}
         tagline={data.tagline}
-        variant={data.variant}
         breadcrumbs={[
           { label: 'Solutions', href: routes.temporaryStaffing },
           { label: data.title },
