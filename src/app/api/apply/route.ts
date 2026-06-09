@@ -9,6 +9,7 @@ import { NextResponse } from 'next/server'
 
 import { z } from 'zod'
 
+import { saveCandidateApplication } from '@/lib/db-service'
 import { applicationEmailTemplates } from '@/lib/email-templates'
 import { NOTIFY_ADDRESS } from '@/lib/resend'
 import { sendFormEmails } from '@/lib/send-form-emails'
@@ -100,6 +101,8 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     const resumeEntry = fd.get('resume')
     let attachments: { filename: string; content: Buffer }[] | undefined
+    let resumeFileName: string | undefined
+    let resumeFileSize: number | undefined
 
     if (resumeEntry instanceof File && resumeEntry.size > 0) {
       if (!isValidResume(resumeEntry)) {
@@ -111,6 +114,8 @@ export async function POST(request: Request): Promise<NextResponse> {
           { status: 400 }
         )
       }
+      resumeFileName = resumeEntry.name
+      resumeFileSize = resumeEntry.size
       attachments = [
         {
           filename: resumeEntry.name,
@@ -120,21 +125,50 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     const templates = applicationEmailTemplates(parsed.data)
-    const result = await sendFormEmails(
-      {
-        to: NOTIFY_ADDRESS,
-        subject: templates.internalSubject,
-        html: templates.internalHtml,
-        attachments,
-      },
-      {
-        to: parsed.data.email,
-        subject: templates.userSubject,
-        html: templates.userHtml,
-      }
-    )
 
-    if (result === 'failed') {
+    const [dbResult, emailResult] = await Promise.allSettled([
+      saveCandidateApplication({
+        firstName: parsed.data.firstName,
+        lastName: parsed.data.lastName,
+        email: parsed.data.email,
+        phone: parsed.data.phone,
+        city: parsed.data.city ?? '',
+        state: parsed.data.state ?? '',
+        linkedinUrl: parsed.data.linkedin,
+        currentJobTitle: parsed.data.currentJobTitle,
+        totalExperience: parsed.data.totalExperience,
+        desiredWorkStatus: parsed.data.workStatus,
+        desiredLocation: parsed.data.desiredLocation,
+        expectedSalary: parsed.data.expectedSalary,
+        skills: parsed.data.skills.join(', '),
+        specialization: parsed.data.specialization,
+        coverNote: parsed.data.coverNote,
+        resumeFileName,
+        resumeFileSize,
+      }),
+      sendFormEmails(
+        {
+          to: NOTIFY_ADDRESS,
+          subject: templates.internalSubject,
+          html: templates.internalHtml,
+          attachments,
+        },
+        {
+          to: parsed.data.email,
+          subject: templates.userSubject,
+          html: templates.userHtml,
+        }
+      ),
+    ])
+
+    if (dbResult.status === 'rejected') {
+      logServerError('api/apply/db', dbResult.reason)
+    }
+
+    const dbOk = dbResult.status === 'fulfilled'
+    const emailOk = emailResult.status === 'fulfilled' && emailResult.value === 'ok'
+
+    if (!dbOk && !emailOk) {
       return NextResponse.json(
         { success: false, error: 'Failed to send emails. Please try again.' },
         { status: 500 }

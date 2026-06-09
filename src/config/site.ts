@@ -2,6 +2,7 @@ export const siteConfig = {
   name: 'Veylix Staffing',
   shortName: 'Veylix',
   logoSrc: '/icon/Logo.webp',
+  faviconSrc: '/icon/Favicon.png',
   description:
     'Staffing for teams that care who they hire. Permanent placement, contract staffing, and executive search across North America, the UK, and Australia.',
   url: 'https://www.veylixstaffing.com',

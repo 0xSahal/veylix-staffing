@@ -9,6 +9,7 @@ import { NextResponse } from 'next/server'
 
 import { z } from 'zod'
 
+import { saveContactSubmission } from '@/lib/db-service'
 import { contactEmailTemplates } from '@/lib/email-templates'
 import { NOTIFY_ADDRESS } from '@/lib/resend'
 import { sendFormEmails } from '@/lib/send-form-emails'
@@ -38,20 +39,31 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     const templates = contactEmailTemplates(parsed.data)
-    const result = await sendFormEmails(
-      {
-        to: NOTIFY_ADDRESS,
-        subject: templates.internalSubject,
-        html: templates.internalHtml,
-      },
-      {
-        to: parsed.data.email,
-        subject: templates.userSubject,
-        html: templates.userHtml,
-      }
-    )
 
-    if (result === 'failed') {
+    const [dbResult, emailResult] = await Promise.allSettled([
+      saveContactSubmission(parsed.data),
+      sendFormEmails(
+        {
+          to: NOTIFY_ADDRESS,
+          subject: templates.internalSubject,
+          html: templates.internalHtml,
+        },
+        {
+          to: parsed.data.email,
+          subject: templates.userSubject,
+          html: templates.userHtml,
+        }
+      ),
+    ])
+
+    if (dbResult.status === 'rejected') {
+      logServerError('api/contact/db', dbResult.reason)
+    }
+
+    const dbOk = dbResult.status === 'fulfilled'
+    const emailOk = emailResult.status === 'fulfilled' && emailResult.value === 'ok'
+
+    if (!dbOk && !emailOk) {
       return NextResponse.json(
         { success: false, error: 'Failed to send emails. Please try again.' },
         { status: 500 }
