@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react'
 import { routes } from '@/config/routes'
 
 export type BlogPostPreview = {
+  id: string
   slug: string
   title: string
   excerpt: string

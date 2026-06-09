@@ -29,8 +29,8 @@ const staticPaths = [
 ] as const
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const slugs: { slug: string }[] = await sanityClient.fetch(allPostSlugsQuery)
-  const blogPaths = slugs.map(({ slug }) => routes.blogPost(slug))
+  const slugs: string[] = await sanityClient.fetch(allPostSlugsQuery)
+  const blogPaths = slugs.map((slug) => routes.blogPost(slug))
   const industryPaths = industryRoutes.map((industry) => industry.href)
   const allPaths = [...staticPaths, ...industryPaths, ...blogPaths]
 

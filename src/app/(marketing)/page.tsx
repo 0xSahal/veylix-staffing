@@ -11,14 +11,12 @@ import {
   StatsBar,
   TestimonialsSection,
 } from '@/components/sections'
-import { sanityClient } from '@/lib/sanity/client'
-import { recentPostsQuery } from '@/lib/sanity/queries'
-import type { SanityPostPreview } from '@/types/blog'
+import { fetchRecentPosts } from '@/lib/sanity/fetchPosts'
 
 export const revalidate = 60
 
 export default async function HomePage(): Promise<React.ReactNode> {
-  const posts: SanityPostPreview[] = await sanityClient.fetch(recentPostsQuery)
+  const posts = await fetchRecentPosts(3)
 
   return (
     <main>

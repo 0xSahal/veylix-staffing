@@ -1,9 +1,7 @@
 import { routes } from '@/config/routes'
 import { createPageMetadata } from '@/lib/metadata'
-import { sanityClient } from '@/lib/sanity/client'
+import { fetchRecentPosts } from '@/lib/sanity/fetchPosts'
 import { mapSanityPostToPreview } from '@/lib/sanity/mapPost'
-import { recentPostsQuery } from '@/lib/sanity/queries'
-import type { SanityPostPreview } from '@/types/blog'
 
 import EmployersPage from './EmployersPage'
 
@@ -17,8 +15,8 @@ export const metadata = createPageMetadata({
 })
 
 export default async function EmployersRoutePage(): Promise<React.ReactNode> {
-  const posts: SanityPostPreview[] = await sanityClient.fetch(recentPostsQuery)
-  const featuredPosts = posts.slice(0, 2).map(mapSanityPostToPreview)
+  const posts = await fetchRecentPosts(2)
+  const featuredPosts = posts.map(mapSanityPostToPreview)
 
   return <EmployersPage featuredPosts={featuredPosts} />
 }

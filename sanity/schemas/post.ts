@@ -1,6 +1,8 @@
 import { DocumentTextIcon } from '@sanity/icons'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+const API_VERSION = '2026-06-09'
+
 const CATEGORY_OPTIONS = [
   { title: 'Industry Insights', value: 'Industry Insights' },
   { title: 'Hiring Tips', value: 'Hiring Tips' },
@@ -29,7 +31,19 @@ export const post = defineType({
         source: 'title',
         maxLength: 96,
       },
-      validation: (rule) => rule.required(),
+      validation: (rule) =>
+        rule.required().custom(async (slug, context) => {
+          if (!slug?.current) return true
+
+          const client = context.getClient({ apiVersion: API_VERSION })
+          const documentId = context.document?._id?.replace(/^drafts\./, '') ?? ''
+          const duplicateCount = await client.fetch<number>(
+            `count(*[_type == "post" && slug.current == $slug && !(_id in [$id, "drafts." + $id])])`,
+            { slug: slug.current, id: documentId }
+          )
+
+          return duplicateCount === 0 || 'This slug is already in use by another post'
+        }),
     }),
     defineField({
       name: 'publishedAt',
@@ -123,6 +137,23 @@ export const post = defineType({
               },
             ],
           },
+        }),
+        defineArrayMember({
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+              description: 'Important for SEO and accessibility',
+            }),
+            defineField({
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+            }),
+          ],
         }),
       ],
     }),

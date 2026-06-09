@@ -13,6 +13,7 @@ export function formatPostDate(publishedAt: string): string {
 
 export function mapSanityPostToPreview(post: SanityPostPreview): BlogPostPreview {
   return {
+    id: post._id,
     slug: post.slug.current,
     title: post.title,
     excerpt: post.excerpt,

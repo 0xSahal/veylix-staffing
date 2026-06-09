@@ -8,4 +8,7 @@ export const sanityClient = createClient({
   apiVersion,
   useCdn: process.env.NODE_ENV === 'production',
   token: process.env.SANITY_API_TOKEN,
+  // Without this, authenticated requests can return both draft and published
+  // documents for the same post (duplicate cards on the site).
+  perspective: 'published',
 })

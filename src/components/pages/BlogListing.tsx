@@ -1,27 +1,33 @@
 'use client'
 
-import { useMemo, useState, useTransition } from 'react'
+import { useState, useTransition } from 'react'
+
+import Link from 'next/link'
 
 import { newsletterSubscribe } from '@/app/actions/forms'
 import BlogCard from '@/components/cards/BlogCard'
 import type { BlogPostPreview } from '@/components/cards/BlogCard'
+import BlogPagination from '@/components/ui/BlogPagination'
+import { buildBlogUrl } from '@/lib/blog/url'
 import { cn } from '@/lib/utils'
-import { BLOG_FILTERS } from '@/types/blog'
+import { BLOG_FILTERS, type BlogFilter } from '@/types/blog'
 
 type BlogListingProps = {
   posts: BlogPostPreview[]
+  currentPage: number
+  totalPages: number
+  currentCategory: BlogFilter
 }
 
-export default function BlogListing({ posts }: BlogListingProps): React.ReactNode {
-  const [filter, setFilter] = useState<string>('All')
+export default function BlogListing({
+  posts,
+  currentPage,
+  totalPages,
+  currentCategory,
+}: BlogListingProps): React.ReactNode {
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
   const [isPending, startTransition] = useTransition()
-
-  const filtered = useMemo(() => {
-    if (filter === 'All') return posts
-    return posts.filter((p) => p.category === filter)
-  }, [posts, filter])
 
   const handleNewsletter = (e: React.FormEvent): void => {
     e.preventDefault()
@@ -35,27 +41,38 @@ export default function BlogListing({ posts }: BlogListingProps): React.ReactNod
     <>
       <div className="flex flex-wrap gap-2">
         {BLOG_FILTERS.map((tab) => (
-          <button
+          <Link
             key={tab}
-            type="button"
-            onClick={() => setFilter(tab)}
+            href={buildBlogUrl({ category: tab, page: 1 })}
             className={cn(
               'rounded-btn px-4 py-2 text-sm font-medium transition-colors',
-              filter === tab
+              currentCategory === tab
                 ? 'bg-vx-blue text-white'
                 : 'bg-white text-vx-body hover:text-vx-blue'
             )}
           >
             {tab}
-          </button>
+          </Link>
         ))}
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((post) => (
-          <BlogCard key={post.slug} post={post} />
-        ))}
-      </div>
+      {posts.length > 0 ? (
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => (
+            <BlogCard key={post.id} post={post} />
+          ))}
+        </div>
+      ) : (
+        <p className="mt-10 text-center text-vx-muted">
+          No articles found{currentCategory !== 'All' ? ` in ${currentCategory}` : ''}.
+        </p>
+      )}
+
+      <BlogPagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        category={currentCategory}
+      />
 
       <section className="mt-16 rounded-card-lg bg-vx-navy px-6 py-10 text-center sm:px-12">
         <h3 className="font-display text-xl font-bold text-white sm:text-2xl">

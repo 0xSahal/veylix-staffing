@@ -6,6 +6,7 @@ import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import BlogCard from '@/components/cards/BlogCard'
 import PageHero from '@/components/layout/PageHero'
 import { routes } from '@/config/routes'
+import { dedupePostsBySlug } from '@/lib/blog/dedupe'
 import { createPageMetadata } from '@/lib/metadata'
 import { sanityClient } from '@/lib/sanity/client'
 import {
@@ -13,7 +14,11 @@ import {
   mapSanityPostToPreview,
   formatPostDate,
 } from '@/lib/sanity/mapPost'
-import { allPostSlugsQuery, allPostsQuery, postBySlugQuery } from '@/lib/sanity/queries'
+import {
+  allPostSlugsQuery,
+  postBySlugQuery,
+  relatedPostsQuery,
+} from '@/lib/sanity/queries'
 import type { SanityPost, SanityPostPreview } from '@/types/blog'
 
 export const revalidate = 60
@@ -79,8 +84,8 @@ type PageProps = {
 }
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const slugs: { slug: string }[] = await sanityClient.fetch(allPostSlugsQuery)
-  return slugs.map(({ slug }) => ({ slug }))
+  const slugs: string[] = await sanityClient.fetch(allPostSlugsQuery)
+  return slugs.map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -101,11 +106,10 @@ export default async function BlogPostPage({
   const post: SanityPost | null = await sanityClient.fetch(postBySlugQuery, { slug })
   if (!post) notFound()
 
-  const allPosts: SanityPostPreview[] = await sanityClient.fetch(allPostsQuery)
-  const related = allPosts
-    .filter((p) => p.slug.current !== slug)
-    .slice(0, 3)
-    .map(mapSanityPostToPreview)
+  const relatedPosts: SanityPostPreview[] = await sanityClient.fetch(relatedPostsQuery, {
+    slug,
+  })
+  const related = dedupePostsBySlug(relatedPosts).slice(0, 3).map(mapSanityPostToPreview)
 
   const shareUrl = `${routes.blogPost(slug)}`
   const coverImageUrl =
@@ -172,7 +176,7 @@ export default async function BlogPostPage({
           <h2 className="heading-h3 text-vx-navy">Related Articles</h2>
           <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
             {related.map((p) => (
-              <BlogCard key={p.slug} post={p} />
+              <BlogCard key={p.id} post={p} />
             ))}
           </div>
         </div>

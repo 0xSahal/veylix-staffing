@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { ArrowRight } from 'lucide-react'
 
+import { routes } from '@/config/routes'
 import { formatPostDate, getCoverImageUrl } from '@/lib/sanity/mapPost'
 import type { SanityPostPreview } from '@/types/blog'
 
@@ -36,7 +37,7 @@ export default function BlogSection({ posts }: BlogSectionProps): React.ReactNod
           </h2>
         </div>
         <Link
-          href="/blog"
+          href={routes.blog}
           className="inline-flex items-center gap-1.5 font-body text-[15px] font-semibold text-vx-blue"
         >
           All articles
@@ -45,7 +46,10 @@ export default function BlogSection({ posts }: BlogSectionProps): React.ReactNod
       </div>
 
       <div className="container-vx grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <article className="group col-span-1 cursor-pointer transition-transform duration-300 hover:-translate-y-0.5 md:col-span-2 lg:col-span-2">
+        <Link
+          href={routes.blogPost(featured.slug.current)}
+          className="group col-span-1 block transition-transform duration-300 hover:-translate-y-0.5 md:col-span-2 lg:col-span-2"
+        >
           <div className="relative h-56 overflow-hidden rounded-card-lg sm:h-64 lg:h-72">
             <Image
               src={featuredImage}
@@ -86,11 +90,12 @@ export default function BlogSection({ posts }: BlogSectionProps): React.ReactNod
               </>
             ) : null}
           </div>
-        </article>
+        </Link>
 
         {sidePosts.slice(0, 2).map((post) => (
           <SideBlogCard
             key={post._id}
+            slug={post.slug.current}
             image={
               getCoverImageUrl(post.coverImage, 400) ??
               'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80&fit=crop'
@@ -107,12 +112,14 @@ export default function BlogSection({ posts }: BlogSectionProps): React.ReactNod
 }
 
 function SideBlogCard({
+  slug,
   image,
   alt,
   label,
   title,
   meta,
 }: {
+  slug: string
   image: string
   alt: string
   label: string
@@ -120,7 +127,10 @@ function SideBlogCard({
   meta: string
 }): React.ReactNode {
   return (
-    <article className="group col-span-1 cursor-pointer transition-transform duration-300 hover:-translate-y-0.5">
+    <Link
+      href={routes.blogPost(slug)}
+      className="group col-span-1 block transition-transform duration-300 hover:-translate-y-0.5"
+    >
       <div className="relative h-44 overflow-hidden rounded-card">
         <Image
           src={image}
@@ -136,6 +146,6 @@ function SideBlogCard({
         {title}
       </h3>
       <p className="mt-2 text-xs text-vx-muted">{meta}</p>
-    </article>
+    </Link>
   )
 }
