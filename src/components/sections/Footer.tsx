@@ -6,7 +6,6 @@ import Link from 'next/link'
 
 import { Clock, Mail, MapPin, Phone } from 'lucide-react'
 
-import { newsletterSubscribe } from '@/app/actions/forms'
 import SocialIcon from '@/components/ui/SocialIcon'
 import VeylixLogo from '@/components/ui/VeylixLogo'
 import { footerJobSeekerLinks, footerQuickLinks } from '@/config/navigation'
@@ -31,7 +30,12 @@ export default function Footer(): React.ReactNode {
     if (typeof email !== 'string') return
 
     startTransition(async () => {
-      const result = await newsletterSubscribe({ email })
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      const result = (await res.json()) as { success: boolean; error?: string }
       if (result.success) {
         setSubscribed(true)
         setError(null)

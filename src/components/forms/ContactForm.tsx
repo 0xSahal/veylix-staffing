@@ -2,7 +2,6 @@
 
 import { useState, useTransition } from 'react'
 
-import { contactMessage } from '@/app/actions/forms'
 import FormField, { inputClassName } from '@/components/forms/FormField'
 import { formFieldString } from '@/lib/form'
 
@@ -23,13 +22,18 @@ export default function ContactForm(): React.ReactNode {
     e.preventDefault()
     const fd = new FormData(e.currentTarget)
     startTransition(async () => {
-      const result = await contactMessage({
-        fullName: formFieldString(fd, 'fullName'),
-        email: formFieldString(fd, 'email'),
-        phone: formFieldString(fd, 'phone'),
-        subject: formFieldString(fd, 'subject'),
-        message: formFieldString(fd, 'message'),
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: formFieldString(fd, 'fullName'),
+          email: formFieldString(fd, 'email'),
+          phone: formFieldString(fd, 'phone'),
+          subject: formFieldString(fd, 'subject'),
+          message: formFieldString(fd, 'message'),
+        }),
       })
+      const result = (await res.json()) as { success: boolean; error?: string }
       if (result.success) {
         setSuccess(true)
         setError(null)

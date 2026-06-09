@@ -7,7 +7,6 @@ import gsap from 'gsap'
 import { AlertCircle, ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react'
 import { useForm, useWatch } from 'react-hook-form'
 
-import { placeJobOrder } from '@/app/actions/forms'
 import {
   PJInput,
   PJPhone,
@@ -128,7 +127,16 @@ export default function PlaceJobForm(): React.ReactNode {
 
   const onValid = async (data: PlaceJobValues): Promise<void> => {
     setServerError(null)
-    const result = await placeJobOrder(data)
+    const res = await fetch('/api/place-job', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    const result = (await res.json()) as {
+      success: boolean
+      error?: string
+      fieldErrors?: Record<string, string[]>
+    }
     if (result.success) {
       setSubmittedEmail(data.email)
       setIsSubmitted(true)

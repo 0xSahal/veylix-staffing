@@ -1,3 +1,5 @@
+import Script from 'next/script'
+
 import { Providers } from '@/app/providers'
 import { MotionProvider } from '@/app/providers/MotionProvider'
 import { siteConfig } from '@/config/site'
@@ -27,6 +29,11 @@ export default function RootLayout({
       className={`${inter.variable} ${syne.variable} ${instrumentSans.variable}`}
     >
       <body>
+        <Script
+          id="cookieyes"
+          strategy="afterInteractive"
+          src="https://cdn-cookieyes.com/client_data/c29ba04217122ba7ef1287943795c35b/script.js"
+        />
         <MotionProvider>
           <Providers>{children}</Providers>
         </MotionProvider>
