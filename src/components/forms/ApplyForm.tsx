@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 
-import { applyNow } from '@/app/actions/forms'
 import FileDropzone from '@/components/forms/FileDropzone'
 import FormField, { inputClassName } from '@/components/forms/FormField'
 import TagInput from '@/components/forms/TagInput'
@@ -23,6 +22,7 @@ export default function ApplyForm({ jobId }: ApplyFormProps): React.ReactNode {
   const [coverNote, setCoverNote] = useState('')
   const [workStatus, setWorkStatus] = useState<string[]>([])
   const [openToRemote, setOpenToRemote] = useState(false)
+  const [resumeFile, setResumeFile] = useState<File | null>(null)
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -64,13 +64,28 @@ export default function ApplyForm({ jobId }: ApplyFormProps): React.ReactNode {
     if (Object.keys(eMap).length > 0) return
 
     setPending(true)
-    const result = await applyNow({
-      ...form,
-      workStatus,
-      openToRemote,
-      skills,
-      coverNote,
-    })
+    const formData = new FormData()
+    formData.append('firstName', form.firstName)
+    formData.append('lastName', form.lastName)
+    formData.append('email', form.email)
+    formData.append('phone', form.phone)
+    formData.append('city', form.city)
+    formData.append('state', form.state)
+    formData.append('linkedin', form.linkedin)
+    formData.append('currentJobTitle', form.currentJobTitle)
+    formData.append('totalExperience', form.totalExperience)
+    formData.append('workStatus', JSON.stringify(workStatus))
+    formData.append('desiredLocation', form.desiredLocation)
+    formData.append('openToRemote', String(openToRemote))
+    formData.append('expectedSalary', form.expectedSalary)
+    formData.append('skills', JSON.stringify(skills))
+    formData.append('specialization', form.specialization)
+    formData.append('coverNote', coverNote)
+    if (resumeFile) {
+      formData.append('resume', resumeFile)
+    }
+    const res = await fetch('/api/apply', { method: 'POST', body: formData })
+    const result = (await res.json()) as { success: boolean }
     setPending(false)
     if (result.success) setSuccess(true)
   }
@@ -179,7 +194,10 @@ export default function ApplyForm({ jobId }: ApplyFormProps): React.ReactNode {
         <div className="mt-4 space-y-5">
           <div>
             <p className="mb-2 text-sm font-medium text-vx-body">Resume Upload</p>
-            <FileDropzone onFile={() => {}} label="PDF or DOC — drag & drop or browse" />
+            <FileDropzone
+              onFile={setResumeFile}
+              label="PDF or DOC — drag & drop or browse"
+            />
           </div>
           <div className="grid gap-5 sm:grid-cols-2">
             <FormField

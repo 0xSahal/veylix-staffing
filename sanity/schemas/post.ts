@@ -1,15 +1,17 @@
 import { DocumentTextIcon } from '@sanity/icons'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+import { CategoryInput } from '../components/CategoryInput'
+
+import type { PreviewValue, SlugValue } from 'sanity'
+
 const API_VERSION = '2026-06-09'
 
-const CATEGORY_OPTIONS = [
-  { title: 'Industry Insights', value: 'Industry Insights' },
-  { title: 'Hiring Tips', value: 'Hiring Tips' },
-  { title: 'Career Advice', value: 'Career Advice' },
-  { title: 'Workforce Trends', value: 'Workforce Trends' },
-  { title: 'Company News', value: 'Company News' },
-] as const
+type PostPreviewSelection = {
+  title?: string
+  author?: string
+  media?: unknown
+}
 
 export const post = defineType({
   name: 'post',
@@ -32,7 +34,7 @@ export const post = defineType({
         maxLength: 96,
       },
       validation: (rule) =>
-        rule.required().custom(async (slug, context) => {
+        rule.required().custom(async (slug: SlugValue | undefined, context) => {
           if (!slug?.current) return true
 
           const client = context.getClient({ apiVersion: API_VERSION })
@@ -55,9 +57,10 @@ export const post = defineType({
       name: 'category',
       title: 'Category',
       type: 'string',
-      options: {
-        list: [...CATEGORY_OPTIONS],
-        layout: 'dropdown',
+      description:
+        'Pick from the list, choose “Add new category…”, or type your own below',
+      components: {
+        input: CategoryInput,
       },
       validation: (rule) => rule.required(),
     }),
@@ -171,9 +174,13 @@ export const post = defineType({
       author: 'author.name',
       media: 'coverImage',
     },
-    prepare(selection) {
-      const { author } = selection
-      return { ...selection, subtitle: author ? `by ${author}` : undefined }
+    prepare(selection: PostPreviewSelection): PreviewValue {
+      const { title, author, media } = selection
+      return {
+        title,
+        media: media as PreviewValue['media'],
+        subtitle: author ? `by ${author}` : undefined,
+      }
     },
   },
 })

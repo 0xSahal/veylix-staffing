@@ -28,7 +28,6 @@
       }
     ],
     "paths": {
-      "@sanity/vision": ["./node_modules/@sanity/vision/lib/index.d.ts"],
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
       "@/sections/*": ["./src/components/sections/*"],
@@ -50,5 +49,5 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "sanity"]
 }

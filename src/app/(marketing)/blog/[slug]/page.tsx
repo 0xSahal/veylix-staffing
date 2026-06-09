@@ -160,12 +160,12 @@ export default async function BlogPostPage({
               LinkedIn
             </a>
             <a
-              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.title)}`}
+              href={`https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.title)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-vx-blue hover:underline"
             >
-              Twitter
+              X
             </a>
           </div>
         </div>

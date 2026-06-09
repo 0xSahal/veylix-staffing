@@ -4,7 +4,6 @@ import { useState, useTransition } from 'react'
 
 import Link from 'next/link'
 
-import { newsletterSubscribe } from '@/app/actions/forms'
 import BlogCard from '@/components/cards/BlogCard'
 import type { BlogPostPreview } from '@/components/cards/BlogCard'
 import BlogPagination from '@/components/ui/BlogPagination'
@@ -32,7 +31,12 @@ export default function BlogListing({
   const handleNewsletter = (e: React.FormEvent): void => {
     e.preventDefault()
     startTransition(async () => {
-      const result = await newsletterSubscribe({ email })
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      const result = (await res.json()) as { success: boolean }
       if (result.success) setSubscribed(true)
     })
   }
