@@ -1,6 +1,7 @@
 import { industryRoutes, routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
-import { BLOG_POSTS } from '@/constants/pages/blog'
+import { sanityClient } from '@/lib/sanity/client'
+import { allPostSlugsQuery } from '@/lib/sanity/queries'
 
 import type { MetadataRoute } from 'next'
 
@@ -27,8 +28,9 @@ const staticPaths = [
   routes.terms,
 ] as const
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const blogPaths = BLOG_POSTS.map((post) => routes.blogPost(post.slug))
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const slugs: { slug: string }[] = await sanityClient.fetch(allPostSlugsQuery)
+  const blogPaths = slugs.map(({ slug }) => routes.blogPost(slug))
   const industryPaths = industryRoutes.map((industry) => industry.href)
   const allPaths = [...staticPaths, ...industryPaths, ...blogPaths]
 

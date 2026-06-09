@@ -9,10 +9,10 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight } from 'lucide-react'
 
+import type { BlogPostPreview } from '@/components/cards/BlogCard'
 import { Container } from '@/components/common/Container'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
 import { routes } from '@/config/routes'
-import { BLOG_POSTS } from '@/constants/pages/blog'
 import {
   employerBenefits,
   employerProcessSteps,
@@ -70,10 +70,13 @@ function animateInView(
   })
 }
 
-export default function EmployersPage(): React.ReactNode {
+export default function EmployersPage({
+  featuredPosts,
+}: {
+  featuredPosts: BlogPostPreview[]
+}): React.ReactNode {
   const containerRef = useRef<HTMLDivElement>(null)
   const prefersReduced = usePrefersReducedMotion()
-  const featuredPosts = BLOG_POSTS.slice(0, 2)
 
   useEffect(() => {
     if (prefersReduced || !containerRef.current) return
@@ -403,7 +406,10 @@ export default function EmployersPage(): React.ReactNode {
                 <Link href={routes.blogPost(post.slug)} className="block">
                   <div className="relative aspect-[16/9] overflow-hidden">
                     <Image
-                      src={`https://picsum.photos/seed/${post.imageSeed}/800/450`}
+                      src={
+                        post.imageUrl ??
+                        `https://picsum.photos/seed/${post.imageSeed ?? post.slug}/800/450`
+                      }
                       alt={post.title}
                       fill
                       className="object-cover object-center transition-transform duration-700 group-hover:scale-105"

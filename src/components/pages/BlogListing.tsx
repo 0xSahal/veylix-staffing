@@ -4,12 +4,12 @@ import { useMemo, useState, useTransition } from 'react'
 
 import { newsletterSubscribe } from '@/app/actions/forms'
 import BlogCard from '@/components/cards/BlogCard'
-import type { BlogPostFull } from '@/constants/pages/blog'
-import { BLOG_FILTERS } from '@/constants/pages/blog'
+import type { BlogPostPreview } from '@/components/cards/BlogCard'
 import { cn } from '@/lib/utils'
+import { BLOG_FILTERS } from '@/types/blog'
 
 type BlogListingProps = {
-  posts: BlogPostFull[]
+  posts: BlogPostPreview[]
 }
 
 export default function BlogListing({ posts }: BlogListingProps): React.ReactNode {
@@ -20,12 +20,7 @@ export default function BlogListing({ posts }: BlogListingProps): React.ReactNod
 
   const filtered = useMemo(() => {
     if (filter === 'All') return posts
-    if (filter === 'Job Seekers') {
-      return posts.filter((p) =>
-        ['Remote Work', 'Diversity in Hiring'].includes(p.categoryFilter)
-      )
-    }
-    return posts.filter((p) => p.categoryFilter === filter)
+    return posts.filter((p) => p.category === filter)
   }, [posts, filter])
 
   const handleNewsletter = (e: React.FormEvent): void => {

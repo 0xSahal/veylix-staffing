@@ -1,8 +1,13 @@
 import PageHero from '@/components/layout/PageHero'
 import BlogListing from '@/components/pages/BlogListing'
 import { routes } from '@/config/routes'
-import { BLOG_POSTS } from '@/constants/pages/blog'
 import { createPageMetadata } from '@/lib/metadata'
+import { sanityClient } from '@/lib/sanity/client'
+import { mapSanityPostToPreview } from '@/lib/sanity/mapPost'
+import { allPostsQuery } from '@/lib/sanity/queries'
+import type { SanityPostPreview } from '@/types/blog'
+
+export const revalidate = 60
 
 export const metadata = createPageMetadata({
   title: 'Insights & Resources',
@@ -11,7 +16,10 @@ export const metadata = createPageMetadata({
   path: routes.blog,
 })
 
-export default function BlogPage(): React.ReactNode {
+export default async function BlogPage(): Promise<React.ReactNode> {
+  const sanityPosts: SanityPostPreview[] = await sanityClient.fetch(allPostsQuery)
+  const posts = sanityPosts.map(mapSanityPostToPreview)
+
   return (
     <main>
       <PageHero
@@ -24,7 +32,7 @@ export default function BlogPage(): React.ReactNode {
 
       <section className="section-vx bg-vx-off">
         <div className="container-vx">
-          <BlogListing posts={BLOG_POSTS} />
+          <BlogListing posts={posts} />
         </div>
       </section>
     </main>

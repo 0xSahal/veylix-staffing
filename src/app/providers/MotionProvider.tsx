@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import { usePathname } from 'next/navigation'
 
 import { LazyMotion, domAnimation } from 'framer-motion'
 
@@ -17,6 +18,12 @@ type MotionProviderProps = {
 }
 
 export function MotionProvider({ children }: MotionProviderProps): React.ReactNode {
+  const pathname = usePathname()
+
+  if (pathname?.startsWith('/studio')) {
+    return children
+  }
+
   return (
     <LazyMotion features={domAnimation} strict>
       <ScrollProgress />

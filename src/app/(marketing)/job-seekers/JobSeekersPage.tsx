@@ -15,6 +15,15 @@ import { routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
+export type JobSeekerResource = {
+  category: string
+  date: string
+  title: string
+  excerpt: string
+  href: string
+  imageSrc: string
+  imageAlt: string
+}
 const SCROLL_START = 'top 82%'
 const NAVY = '#0F2246'
 const BLUE = '#1A6EDC'
@@ -62,39 +71,6 @@ function animateInView(
     },
   })
 }
-
-const RESOURCES = [
-  {
-    category: 'Career Tips',
-    date: 'Jun 15, 2025',
-    title: '5 Hiring Mistakes Companies Make and How to Avoid Them',
-    excerpt:
-      'From rushing the process to ignoring cultural fit, these common mistakes cost companies time and great candidates.',
-    href: routes.blogPost('hiring-mistakes'),
-    imageSrc: '/images/recruting-interview.webp',
-    imageAlt: 'Professional interview in a modern office',
-  },
-  {
-    category: 'Remote Work',
-    date: 'Dec 7, 2024',
-    title: 'The Benefits of Remote Hiring: Why It Matters and How to Start',
-    excerpt:
-      'Remote hiring expands your talent pool and often results in higher-quality placements. Here is how to approach it.',
-    href: routes.blogPost('remote-hiring-benefits'),
-    imageSrc: '/images/hero-bg.webp',
-    imageAlt: 'Professional working remotely',
-  },
-  {
-    category: 'Job Listings',
-    date: 'Feb 23, 2025',
-    title: 'Crafting the Perfect Job Listing to Attract Top Talent',
-    excerpt:
-      'Your job description is often the first impression candidates have of your company. Here is how to make it count.',
-    href: routes.blogPost('perfect-job-listing'),
-    imageSrc: '/images/about-sitting-group.webp',
-    imageAlt: 'Team collaborating in a professional setting',
-  },
-] as const
 
 const PROCESS_STEPS = [
   {
@@ -147,7 +123,11 @@ const BENEFITS = [
   },
 ] as const
 
-export default function JobSeekersPage(): React.ReactNode {
+export default function JobSeekersPage({
+  resources,
+}: {
+  resources: JobSeekerResource[]
+}): React.ReactNode {
   const containerRef = useRef<HTMLDivElement>(null)
   const prefersReduced = usePrefersReducedMotion()
 
@@ -422,7 +402,7 @@ export default function JobSeekersPage(): React.ReactNode {
           </div>
 
           <div className="seekers-resources-grid grid grid-cols-1 gap-6 md:grid-cols-3">
-            {RESOURCES.map((post) => (
+            {resources.map((post) => (
               <article
                 key={post.title}
                 className="group overflow-hidden rounded-2xl border border-[#E2E8F0] transition-all duration-500 hover:shadow-xl hover:shadow-gray-100"

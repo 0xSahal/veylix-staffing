@@ -11,7 +11,8 @@ export type BlogPostPreview = {
   excerpt: string
   category: string
   date: string
-  imageSeed: string
+  imageUrl?: string
+  imageSeed?: string
   author: string
   authorAvatar?: string
 }
@@ -25,7 +26,10 @@ export default function BlogCard({ post }: BlogCardProps): React.ReactNode {
     <article className="group flex h-full flex-col overflow-hidden rounded-card border border-vx-border bg-white shadow-card transition-shadow hover:shadow-card-hover">
       <div className="relative h-48 overflow-hidden">
         <Image
-          src={`https://picsum.photos/seed/${post.imageSeed}/400/250`}
+          src={
+            post.imageUrl ??
+            `https://picsum.photos/seed/${post.imageSeed ?? post.slug}/400/250`
+          }
           alt=""
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
