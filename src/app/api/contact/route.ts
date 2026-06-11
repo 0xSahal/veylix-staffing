@@ -11,6 +11,7 @@ import { z } from 'zod'
 
 import { saveContactSubmission } from '@/lib/db-service'
 import { contactEmailTemplates } from '@/lib/email-templates'
+import { verifyRecaptchaToken } from '@/lib/recaptcha-verify'
 import { NOTIFY_ADDRESS } from '@/lib/resend'
 import { sendFormEmails } from '@/lib/send-form-emails'
 import { logServerError } from '@/lib/server-log'
@@ -21,6 +22,7 @@ const contactSchema = z.object({
   phone: z.string().optional(),
   subject: z.string().min(1),
   message: z.string().min(10),
+  recaptchaToken: z.string().optional(),
 })
 
 export async function POST(request: Request): Promise<NextResponse> {
@@ -38,10 +40,23 @@ export async function POST(request: Request): Promise<NextResponse> {
       )
     }
 
-    const templates = contactEmailTemplates(parsed.data)
+    const recaptchaResult = await verifyRecaptchaToken(
+      parsed.data.recaptchaToken,
+      'contact_submit',
+      0.5
+    )
+    if (!recaptchaResult.success) {
+      return NextResponse.json(
+        { success: false, error: 'Request could not be verified. Please try again.' },
+        { status: 400 }
+      )
+    }
+
+    const { recaptchaToken: _recaptchaToken, ...formData } = parsed.data
+    const templates = contactEmailTemplates(formData)
 
     const [dbResult, emailResult] = await Promise.allSettled([
-      saveContactSubmission(parsed.data),
+      saveContactSubmission(formData),
       sendFormEmails(
         {
           to: NOTIFY_ADDRESS,
@@ -49,7 +64,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           html: templates.internalHtml,
         },
         {
-          to: parsed.data.email,
+          to: formData.email,
           subject: templates.userSubject,
           html: templates.userHtml,
         }

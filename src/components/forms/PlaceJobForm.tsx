@@ -29,6 +29,7 @@ import {
 import StepIndicator from '@/components/forms/place-job/StepIndicator'
 import { routes } from '@/config/routes'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { getRecaptchaToken } from '@/lib/recaptcha'
 
 const TOTAL_STEPS = 4
 
@@ -127,10 +128,11 @@ export default function PlaceJobForm(): React.ReactNode {
 
   const onValid = async (data: PlaceJobValues): Promise<void> => {
     setServerError(null)
+    const recaptchaToken = await getRecaptchaToken('job_order_submit')
     const res = await fetch('/api/place-job', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, recaptchaToken }),
     })
     const result = (await res.json()) as {
       success: boolean
@@ -533,26 +535,32 @@ export default function PlaceJobForm(): React.ReactNode {
               <ArrowRight className="h-4 w-4" aria-hidden />
             </button>
           ) : (
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="flex items-center justify-center gap-2 rounded-xl bg-vx-navy px-8 py-3 font-body text-sm font-bold text-white transition-all duration-200 hover:bg-vx-navy/90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {isSubmitting ? (
-                <>
-                  <span
-                    className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
-                    aria-hidden
-                  />
-                  Submitting...
-                </>
-              ) : (
-                <>
-                  Submit Job Order
-                  <CheckCircle className="h-4 w-4" aria-hidden />
-                </>
-              )}
-            </button>
+            <div className="flex flex-col items-stretch gap-2 sm:items-end">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="flex items-center justify-center gap-2 rounded-xl bg-vx-navy px-8 py-3 font-body text-sm font-bold text-white transition-all duration-200 hover:bg-vx-navy/90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isSubmitting ? (
+                  <>
+                    <span
+                      className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+                      aria-hidden
+                    />
+                    Submitting...
+                  </>
+                ) : (
+                  <>
+                    Submit Job Order
+                    <CheckCircle className="h-4 w-4" aria-hidden />
+                  </>
+                )}
+              </button>
+              <p className="text-xs text-vx-muted">
+                This site is protected by reCAPTCHA. Google Privacy Policy and Terms of
+                Service apply.
+              </p>
+            </div>
           )}
         </div>
       </form>

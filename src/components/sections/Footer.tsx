@@ -11,6 +11,7 @@ import VeylixLogo from '@/components/ui/VeylixLogo'
 import { footerJobSeekerLinks, footerQuickLinks } from '@/config/navigation'
 import { routes, solutionRoutes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
+import { getRecaptchaToken } from '@/lib/recaptcha'
 
 const footerColumnHeading =
   'text-[11px] font-bold uppercase tracking-[0.15em] text-[#94a3b8]'
@@ -30,10 +31,11 @@ export default function Footer(): React.ReactNode {
     if (typeof email !== 'string') return
 
     startTransition(async () => {
+      const recaptchaToken = await getRecaptchaToken('newsletter_subscribe')
       const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, recaptchaToken }),
       })
       const result = (await res.json()) as { success: boolean; error?: string }
       if (result.success) {
@@ -61,29 +63,35 @@ export default function Footer(): React.ReactNode {
                 field. Twice a month. No filler.
               </p>
             </div>
-            <form
-              onSubmit={handleSubmit}
-              className="flex w-full flex-col gap-2 sm:flex-row sm:overflow-hidden sm:rounded-btn sm:border sm:border-white/10 sm:bg-white/[0.05] lg:max-w-sm"
-            >
-              <input
-                type="email"
-                name="email"
-                required
-                disabled={subscribed || isPending}
-                placeholder={subscribed ? "You're subscribed!" : 'Your work email'}
-                className="flex-1 rounded-btn border border-white/10 bg-white/[0.05] px-5 py-3.5 text-sm text-white placeholder-[#475569] focus:outline-none focus:ring-2 focus:ring-vx-blue disabled:opacity-70 sm:border-0 sm:bg-transparent"
-                aria-label="Subscribe to Veylix newsletter"
-              />
-              <button
-                type="submit"
-                disabled={subscribed || isPending}
-                className="flex-shrink-0 rounded-btn bg-vx-blue px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-vx-blue-dark disabled:opacity-70"
+            <div className="flex w-full flex-col gap-2 lg:max-w-sm">
+              <form
+                onSubmit={handleSubmit}
+                className="flex w-full flex-col gap-2 sm:flex-row sm:overflow-hidden sm:rounded-btn sm:border sm:border-white/10 sm:bg-white/[0.05]"
               >
-                {subscribed && 'Subscribed ✓'}
-                {!subscribed && isPending && '…'}
-                {!subscribed && !isPending && 'Subscribe →'}
-              </button>
-            </form>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  disabled={subscribed || isPending}
+                  placeholder={subscribed ? "You're subscribed!" : 'Your work email'}
+                  className="flex-1 rounded-btn border border-white/10 bg-white/[0.05] px-5 py-3.5 text-sm text-white placeholder-[#475569] focus:outline-none focus:ring-2 focus:ring-vx-blue disabled:opacity-70 sm:border-0 sm:bg-transparent"
+                  aria-label="Subscribe to Veylix newsletter"
+                />
+                <button
+                  type="submit"
+                  disabled={subscribed || isPending}
+                  className="flex-shrink-0 rounded-btn bg-vx-blue px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-vx-blue-dark disabled:opacity-70"
+                >
+                  {subscribed && 'Subscribed ✓'}
+                  {!subscribed && isPending && '…'}
+                  {!subscribed && !isPending && 'Subscribe →'}
+                </button>
+              </form>
+              <p className="text-xs text-[#64748B]">
+                This site is protected by reCAPTCHA. Google Privacy Policy and Terms of
+                Service apply.
+              </p>
+            </div>
             {error && (
               <p className="text-sm text-red-400 lg:absolute lg:bottom-4 lg:right-[120px]">
                 {error}

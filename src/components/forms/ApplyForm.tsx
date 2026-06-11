@@ -5,6 +5,7 @@ import { useState } from 'react'
 import FileDropzone from '@/components/forms/FileDropzone'
 import FormField, { inputClassName } from '@/components/forms/FormField'
 import TagInput from '@/components/forms/TagInput'
+import { getRecaptchaToken } from '@/lib/recaptcha'
 
 const EXPERIENCE_OPTIONS = ['0–1 yr', '1–3 yrs', '3–5 yrs', '5–10 yrs', '10+ yrs']
 const WORK_STATUS = ['Full-Time', 'Part-Time', 'Contract', 'C2C', 'Open to any']
@@ -84,6 +85,8 @@ export default function ApplyForm({ jobId }: ApplyFormProps): React.ReactNode {
     if (resumeFile) {
       formData.append('resume', resumeFile)
     }
+    const recaptchaToken = await getRecaptchaToken('candidate_apply')
+    formData.append('recaptchaToken', recaptchaToken ?? '')
     const res = await fetch('/api/apply', { method: 'POST', body: formData })
     const result = (await res.json()) as { success: boolean }
     setPending(false)
@@ -329,6 +332,10 @@ export default function ApplyForm({ jobId }: ApplyFormProps): React.ReactNode {
       >
         {pending ? 'Submitting…' : 'Submit My Application'}
       </button>
+      <p className="text-xs text-vx-muted">
+        This site is protected by reCAPTCHA. Google Privacy Policy and Terms of Service
+        apply.
+      </p>
     </form>
   )
 }

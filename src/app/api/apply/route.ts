@@ -11,6 +11,7 @@ import { z } from 'zod'
 
 import { saveCandidateApplication } from '@/lib/db-service'
 import { applicationEmailTemplates } from '@/lib/email-templates'
+import { verifyRecaptchaToken } from '@/lib/recaptcha-verify'
 import { NOTIFY_ADDRESS } from '@/lib/resend'
 import { sendFormEmails } from '@/lib/send-form-emails'
 import { logServerError } from '@/lib/server-log'
@@ -67,6 +68,19 @@ function isValidResume(file: File): boolean {
 export async function POST(request: Request): Promise<NextResponse> {
   try {
     const fd = await request.formData()
+
+    const recaptchaToken = formFieldString(fd, 'recaptchaToken') || null
+    const recaptchaResult = await verifyRecaptchaToken(
+      recaptchaToken,
+      'candidate_apply',
+      0.5
+    )
+    if (!recaptchaResult.success) {
+      return NextResponse.json(
+        { success: false, error: 'Request could not be verified. Please try again.' },
+        { status: 400 }
+      )
+    }
 
     const raw = {
       firstName: formFieldString(fd, 'firstName'),
