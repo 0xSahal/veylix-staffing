@@ -11,12 +11,14 @@ import { z } from 'zod'
 
 import { saveNewsletterSubscriber } from '@/lib/db-service'
 import { newsletterEmailTemplates } from '@/lib/email-templates'
+import { verifyRecaptchaToken } from '@/lib/recaptcha-verify'
 import { NOTIFY_ADDRESS } from '@/lib/resend'
 import { sendFormEmails } from '@/lib/send-form-emails'
 import { logServerError } from '@/lib/server-log'
 
 const newsletterSchema = z.object({
   email: z.string().email('Please enter a valid email address.'),
+  recaptchaToken: z.string().optional(),
 })
 
 export async function POST(request: Request): Promise<NextResponse> {
@@ -31,10 +33,24 @@ export async function POST(request: Request): Promise<NextResponse> {
       )
     }
 
-    const templates = newsletterEmailTemplates(parsed.data)
+    const recaptchaResult = await verifyRecaptchaToken(
+      parsed.data.recaptchaToken,
+      'newsletter_subscribe',
+      0.5
+    )
+    if (!recaptchaResult.success) {
+      return NextResponse.json(
+        { success: false, error: 'Request could not be verified. Please try again.' },
+        { status: 400 }
+      )
+    }
+
+    const { recaptchaToken: _recaptchaToken, email } = parsed.data
+    const formData = { email }
+    const templates = newsletterEmailTemplates(formData)
 
     const [dbResult, emailResult] = await Promise.allSettled([
-      saveNewsletterSubscriber(parsed.data),
+      saveNewsletterSubscriber(formData),
       sendFormEmails(
         {
           to: NOTIFY_ADDRESS,
@@ -42,7 +58,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           html: templates.internalHtml,
         },
         {
-          to: parsed.data.email,
+          to: formData.email,
           subject: templates.userSubject,
           html: templates.userHtml,
         }

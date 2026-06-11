@@ -286,3 +286,10 @@
     pointer-events: none;
   }
 }
+
+/* Hide reCAPTCHA v3 badge — score verification happens server-side */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

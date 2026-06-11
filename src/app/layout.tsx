@@ -38,6 +38,10 @@ export default function RootLayout({
           strategy="afterInteractive"
           src="https://cdn-cookieyes.com/client_data/c29ba04217122ba7ef1287943795c35b/script.js"
         />
+        <Script
+          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+          strategy="afterInteractive"
+        />
         <MotionProvider>
           <Providers>{children}</Providers>
         </MotionProvider>

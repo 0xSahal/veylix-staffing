@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react'
 
 import FormField, { inputClassName } from '@/components/forms/FormField'
 import { formFieldString } from '@/lib/form'
+import { getRecaptchaToken } from '@/lib/recaptcha'
 
 const SUBJECTS = [
   'General Inquiry',
@@ -22,6 +23,7 @@ export default function ContactForm(): React.ReactNode {
     e.preventDefault()
     const fd = new FormData(e.currentTarget)
     startTransition(async () => {
+      const recaptchaToken = await getRecaptchaToken('contact_submit')
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -31,6 +33,7 @@ export default function ContactForm(): React.ReactNode {
           phone: formFieldString(fd, 'phone'),
           subject: formFieldString(fd, 'subject'),
           message: formFieldString(fd, 'message'),
+          recaptchaToken,
         }),
       })
       const result = (await res.json()) as { success: boolean; error?: string }
@@ -98,6 +101,10 @@ export default function ContactForm(): React.ReactNode {
       >
         {isPending ? 'Sending…' : 'Send Message'}
       </button>
+      <p className="text-xs text-vx-muted">
+        This site is protected by reCAPTCHA. Google Privacy Policy and Terms of Service
+        apply.
+      </p>
     </form>
   )
 }

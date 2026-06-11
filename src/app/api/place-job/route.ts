@@ -7,18 +7,25 @@
 
 import { NextResponse } from 'next/server'
 
+import { z } from 'zod'
+
 import { placeJobSchema } from '@/components/forms/place-job/schema'
 import { saveJobOrder } from '@/lib/db-service'
 import { jobOrderEmailTemplates } from '@/lib/email-templates'
 import { getClientKey, isRateLimited } from '@/lib/rate-limit'
+import { verifyRecaptchaToken } from '@/lib/recaptcha-verify'
 import { NOTIFY_ADDRESS } from '@/lib/resend'
 import { sendFormEmails } from '@/lib/send-form-emails'
 import { logServerError } from '@/lib/server-log'
 
+const placeJobApiSchema = placeJobSchema.extend({
+  recaptchaToken: z.string().optional(),
+})
+
 export async function POST(request: Request): Promise<NextResponse> {
   try {
     const body: unknown = await request.json()
-    const parsed = placeJobSchema.safeParse(body)
+    const parsed = placeJobApiSchema.safeParse(body)
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -29,6 +36,20 @@ export async function POST(request: Request): Promise<NextResponse> {
         { status: 400 }
       )
     }
+
+    const recaptchaResult = await verifyRecaptchaToken(
+      parsed.data.recaptchaToken,
+      'job_order_submit',
+      0.5
+    )
+    if (!recaptchaResult.success) {
+      return NextResponse.json(
+        { success: false, error: 'Request could not be verified. Please try again.' },
+        { status: 400 }
+      )
+    }
+
+    const { recaptchaToken: _recaptchaToken, ...jobData } = parsed.data
 
     const clientKey = await getClientKey()
     if (isRateLimited(clientKey)) {
@@ -42,11 +63,11 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     const clean = Object.fromEntries(
-      Object.entries(parsed.data).map(([key, value]) => [
+      Object.entries(jobData).map(([key, value]) => [
         key,
         typeof value === 'string' ? value.trim() : value,
       ])
-    ) as typeof parsed.data
+    ) as Omit<typeof parsed.data, 'recaptchaToken'>
 
     const orderId = `VO-${Date.now()}`
     const templates = jobOrderEmailTemplates(clean, orderId)
