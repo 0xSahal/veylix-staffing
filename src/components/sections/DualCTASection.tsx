@@ -105,16 +105,14 @@ export default function DualCTASection(): React.ReactNode {
             Find Us Talent →
           </MagneticButton>
           <div className="mt-6 flex flex-wrap gap-2">
-            {['✓ 72hr Shortlist', '✓ No Upfront Fees', '✓ 90-Day Guarantee'].map(
-              (pill) => (
-                <span
-                  key={pill}
-                  className="rounded-full border border-white/20 px-3 py-1.5 text-xs text-white"
-                >
-                  {pill}
-                </span>
-              )
-            )}
+            {['✓ 72hr Shortlist', '✓ 90-Day Guarantee'].map((pill) => (
+              <span
+                key={pill}
+                className="rounded-full border border-white/20 px-3 py-1.5 text-xs text-white"
+              >
+                {pill}
+              </span>
+            ))}
           </div>
         </div>
       </m.div>

@@ -13,6 +13,7 @@ import AnimatedCounter from '@/components/ui/AnimatedCounter'
 import { routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { heroImageClassName } from '@/lib/hero-image-position'
 import { cn } from '@/lib/utils'
 
 const SCROLL_START = 'top 82%'
@@ -329,7 +330,7 @@ export default function AboutPage(): React.ReactNode {
               src="/images/about-hero.png"
               alt="Veylix Staffing professionals"
               fill
-              className="object-cover object-center"
+              className={heroImageClassName('/images/about-hero.png')}
               sizes="45vw"
               priority
             />
@@ -356,7 +357,7 @@ export default function AboutPage(): React.ReactNode {
             <p className="font-display text-[11px] font-bold uppercase tracking-[0.15em] text-[#1A6EDC]">
               About Veylix Staffing
             </p>
-            <h1 className="mt-6 font-display text-[32px] font-extrabold leading-[1.1] text-[#0F2246] sm:text-[40px] md:text-[4.5rem]">
+            <h1 className="mt-6 font-display text-[32px] font-bold leading-[1.1] text-[#0F2246] sm:text-[40px] md:text-[4.5rem]">
               Staffing built on expertise,{' '}
               <span className="italic text-[#1A6EDC]">not just availability.</span>
             </h1>
@@ -469,7 +470,7 @@ export default function AboutPage(): React.ReactNode {
                   index < STATS.length - 1 && 'lg:border-r lg:border-[#CBD5E1]'
                 )}
               >
-                <p className="font-display text-[40px] font-extrabold leading-none text-[#0F2246] sm:text-[52px] md:text-[64px]">
+                <p className="font-display text-[40px] font-bold leading-none text-[#0F2246] sm:text-[52px] md:text-[64px]">
                   <AnimatedCounter end={stat.value} suffix={stat.suffix} duration={2} />
                 </p>
                 <div className="mx-auto my-3 h-0.5 w-6 bg-[#1A6EDC]" aria-hidden />
@@ -504,7 +505,7 @@ export default function AboutPage(): React.ReactNode {
                 className="group border-t border-[#E2E8F0] py-9 transition-colors duration-200 hover:bg-[#F8FAFC]"
               >
                 <div className="flex gap-6 md:gap-10">
-                  <span className="flex shrink-0 items-center gap-3 font-display text-[13px] font-extrabold text-[#1A6EDC]">
+                  <span className="flex shrink-0 items-center gap-3 font-display text-[13px] font-bold text-[#1A6EDC]">
                     <span className="h-6 w-[3px] rounded-full bg-[#1A6EDC]" aria-hidden />
                     {value.num}
                   </span>

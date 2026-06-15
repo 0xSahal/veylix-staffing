@@ -9,3 +9,5 @@ export const HERO_VIDEO_URL =
   'https://videos.pexels.com/video-files/3252234/3252234-uhd_2560_1440_25fps.mp4'
 
 export const HERO_MATCH_SCORE_PERCENT = 94
+
+export const HERO_PLACEMENT_CANDIDATE_IMAGE = '/images/hero-placement-candidate.webp'

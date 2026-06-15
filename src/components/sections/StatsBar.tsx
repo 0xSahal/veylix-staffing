@@ -34,7 +34,7 @@ export default function StatsBar(): React.ReactNode {
                 animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
                 transition={{ delay: index * STAGGER_S + 0.1, duration: 0.5 }}
               />
-              <p className="font-display text-3xl font-extrabold text-vx-navy sm:whitespace-nowrap sm:text-5xl">
+              <p className="font-display text-3xl font-bold text-vx-navy sm:whitespace-nowrap sm:text-5xl">
                 <AnimatedCounter
                   end={stat.end}
                   suffix={stat.suffix}

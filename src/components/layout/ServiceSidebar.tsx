@@ -14,8 +14,6 @@ const INTEREST_OPTIONS = [
   'Temporary Staffing',
   'Direct Hire',
   'Contract to Hire',
-  'Payrolling',
-  'Training',
   'Executive Search',
   'General Inquiry',
 ]

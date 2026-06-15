@@ -3,7 +3,7 @@ import Script from 'next/script'
 import { Providers } from '@/app/providers'
 import { MotionProvider } from '@/app/providers/MotionProvider'
 import { siteConfig } from '@/config/site'
-import { instrumentSans, inter, syne } from '@/styles/fonts'
+import { bricolage, inter } from '@/styles/fonts'
 
 import type { Metadata } from 'next'
 
@@ -16,11 +16,6 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
-  icons: {
-    icon: [{ url: '/icon/Favicon.png', type: 'image/png' }],
-    shortcut: '/icon/Favicon.png',
-    apple: '/icon/Favicon.png',
-  },
 }
 
 export default function RootLayout({
@@ -29,10 +24,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>): React.ReactNode {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${syne.variable} ${instrumentSans.variable}`}
-    >
+    <html lang="en" className={`${bricolage.variable} ${inter.variable}`}>
       <body>
         <Script
           id="cookieyes"

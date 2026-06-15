@@ -32,11 +32,6 @@ export const employerFaqs: FAQItem[] = [
       'Direct hire placements include a guarantee period. If a hire does not meet expectations within that window, we work to replace the candidate per your agreement terms.',
   },
   {
-    question: 'How does payrolling work?',
-    answer:
-      'You identify the talent; we become the employer of record for payroll, taxes, benefits administration, and compliance while you direct day-to-day work.',
-  },
-  {
     question: 'What are your fees?',
     answer:
       'Fees vary by service type — temporary markup, contract bill rates, or direct hire placement fees. We provide transparent pricing before you engage; job seekers never pay fees.',

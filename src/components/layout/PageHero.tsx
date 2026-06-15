@@ -3,9 +3,9 @@ import Link from 'next/link'
 
 import { Container } from '@/components/common/Container'
 import { type BreadcrumbItem } from '@/components/layout/Breadcrumbs'
+import HeroImageOverlay from '@/components/layout/HeroImageOverlay'
 import { routes } from '@/config/routes'
-
-const NAVY = '#0F2246'
+import { heroImageClassName } from '@/lib/hero-image-position'
 
 type PageHeroProps = {
   title: string
@@ -32,16 +32,10 @@ export default function PageHero({
           alt={imageAlt}
           fill
           priority
-          className="object-cover object-center"
+          className={heroImageClassName(imageSrc)}
           sizes="100vw"
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `linear-gradient(to bottom, ${NAVY}CC, ${NAVY}B3, ${NAVY}D9)`,
-          }}
-          aria-hidden
-        />
+        <HeroImageOverlay />
       </div>
 
       <Container className="relative z-10 py-16">

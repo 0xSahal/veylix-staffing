@@ -59,7 +59,7 @@ function TestimonialCard({
             )
           )}
         </div>
-        <span className="font-display text-6xl font-extrabold leading-none text-vx-blue-lt">
+        <span className="font-display text-6xl font-bold leading-none text-vx-blue-lt">
           &ldquo;
         </span>
       </div>

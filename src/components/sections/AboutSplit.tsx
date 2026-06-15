@@ -11,6 +11,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight, Globe2, Play, ShieldCheck, Target, Zap } from 'lucide-react'
 
 import SplitText from '@/components/ui/SplitText'
+import { siteConfig } from '@/config/site'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 const FEATURES = [
@@ -117,7 +118,7 @@ export default function AboutSplit(): React.ReactNode {
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
           >
-            <p className="font-display text-[38px] font-extrabold text-vx-blue">98%</p>
+            <p className="font-display text-[38px] font-bold text-vx-blue">98%</p>
             <p className="mt-1 text-xs text-vx-muted">Client Retention</p>
             <svg
               className="absolute -right-2 -top-2"
@@ -146,7 +147,9 @@ export default function AboutSplit(): React.ReactNode {
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
           >
-            <p className="font-display text-[34px] font-extrabold text-vx-sky">12+</p>
+            <p className="font-display text-[34px] font-bold text-vx-sky">
+              {new Date().getFullYear() - siteConfig.foundedYear}+
+            </p>
             <p className="mt-1 text-[11px] text-white/60">Years in Staffing</p>
           </m.div>
         </div>

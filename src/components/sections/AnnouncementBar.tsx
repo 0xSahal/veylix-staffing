@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import { X } from 'lucide-react'
 
+import { siteConfig } from '@/config/site'
 import {
   ANNOUNCEMENT_BAR_HEIGHT_PX,
   ANNOUNCEMENT_CSS_VAR,
@@ -14,7 +15,7 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 const MESSAGES = [
   '✦ Hiring across North America: first shortlist in 72 hours →',
-  '✦ 10,000+ people placed since 2021. Join the talent network →',
+  `✦ 10,000+ people placed since ${siteConfig.foundedYear}. Join the talent network →`,
   '✦ Executive search now open: confidential, fast, no job-board noise →',
 ] as const
 

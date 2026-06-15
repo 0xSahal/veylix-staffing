@@ -4,8 +4,10 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
 import { Container } from '@/components/common/Container'
+import HeroImageOverlay from '@/components/layout/HeroImageOverlay'
 import { routes } from '@/config/routes'
 import { INDUSTRY_HUB_CARDS } from '@/constants/pages/industries'
+import { heroImageClassName } from '@/lib/hero-image-position'
 import { createPageMetadata } from '@/lib/metadata'
 
 const NAVY = '#0F2246'
@@ -27,16 +29,10 @@ export default function IndustriesPage(): React.ReactNode {
             alt=""
             fill
             priority
-            className="object-cover object-center"
+            className={heroImageClassName('/images/about-sitting-group.webp')}
             sizes="100vw"
           />
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `linear-gradient(to bottom, ${NAVY}CC, ${NAVY}B3, ${NAVY}D9)`,
-            }}
-            aria-hidden
-          />
+          <HeroImageOverlay />
         </div>
 
         <Container className="relative z-10 py-16">

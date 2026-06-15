@@ -54,6 +54,8 @@ const nextConfig: NextConfig = {
       { source: '/candidates', destination: '/job-seekers', permanent: true },
       { source: '/services', destination: '/employers', permanent: true },
       { source: '/how-it-works', destination: '/employers', permanent: true },
+      { source: '/payrolling', destination: '/employers', permanent: true },
+      { source: '/training', destination: '/employers', permanent: true },
     ]
   },
 

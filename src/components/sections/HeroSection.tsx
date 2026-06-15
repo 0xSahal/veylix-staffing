@@ -17,10 +17,12 @@ import {
   HERO_FLOAT_DURATION_C_S,
   HERO_FLOAT_OFFSET_PX,
   HERO_MATCH_SCORE_PERCENT,
+  HERO_PLACEMENT_CANDIDATE_IMAGE,
   HERO_VIDEO_URL,
 } from '@/constants/hero'
 import { useInViewAnimation } from '@/hooks/useInViewAnimation'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { heroImageClassName } from '@/lib/hero-image-position'
 
 const ParticlesBackground = dynamic(() => import('@/components/ui/ParticlesBackground'), {
   ssr: false,
@@ -71,7 +73,7 @@ export default function HeroSection(): React.ReactNode {
           fill
           priority
           quality={90}
-          className="object-cover object-center"
+          className={heroImageClassName('/images/hero-bg.webp')}
           aria-hidden="true"
         />
       </div>
@@ -107,18 +109,25 @@ export default function HeroSection(): React.ReactNode {
       <div className="container-vx relative z-[10] flex min-h-[inherit] flex-col justify-center py-12 pb-20">
         <div className="w-full max-w-[32rem] sm:max-w-2xl lg:max-w-[min(44rem,52vw)]">
           <m.div
-            className="mb-7"
+            className="mb-7 hidden lg:block"
             initial={prefersReduced ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="hero-status-pill font-body text-xs font-medium text-[#94A3B8]">
+            <div className="flex items-stretch gap-4">
               <span
-                className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-vx-green"
+                className="w-px shrink-0 bg-gradient-to-b from-vx-sky/80 via-vx-blue/25 to-transparent"
                 aria-hidden="true"
               />
-              Currently Accepting New Clients
-            </span>
+              <div>
+                <p className="font-body text-[11px] font-bold uppercase tracking-[0.2em] text-[#93C5FD]">
+                  Permanent · Contract · Executive Search
+                </p>
+                <p className="mt-1.5 font-body text-[13px] text-white/45">
+                  North America, UK &amp; Australia · Est. {siteConfig.foundedYear}
+                </p>
+              </div>
+            </div>
           </m.div>
 
           <m.h1
@@ -196,11 +205,11 @@ export default function HeroSection(): React.ReactNode {
           </div>
           <div className="mt-3 flex items-center gap-3">
             <Image
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=48&h=48&fit=crop&crop=face"
-              alt="James Carter, Senior Data Engineer, candidate profile"
+              src={HERO_PLACEMENT_CANDIDATE_IMAGE}
+              alt="James Carter, Senior Data Engineer"
               width={44}
               height={44}
-              className="rounded-full ring-2 ring-white/10"
+              className="h-11 w-11 shrink-0 rounded-full object-cover object-[center_20%] ring-2 ring-white/10"
               sizes="44px"
             />
             <div>
@@ -248,9 +257,7 @@ export default function HeroSection(): React.ReactNode {
             🏆
           </span>
           <p className="mt-1 text-xs font-semibold text-white">Top Rated Agency</p>
-          <p className="mt-2 font-display text-[32px] font-extrabold text-vx-sky">
-            4.9 / 5.0
-          </p>
+          <p className="mt-2 font-display text-[32px] font-bold text-vx-sky">4.9 / 5.0</p>
           <div className="mt-1 flex gap-0.5">
             {HERO_STAR_IDS.map((id) => (
               <Star key={id} size={14} className="fill-vx-gold stroke-vx-gold" />
@@ -275,7 +282,7 @@ export default function HeroSection(): React.ReactNode {
           <p className="text-[10px] font-semibold uppercase tracking-widest text-[#94A3B8]">
             Roles Filled This Month
           </p>
-          <p className="mt-1 font-display text-[42px] font-extrabold text-white">
+          <p className="mt-1 font-display text-[42px] font-bold text-white">
             <AnimatedCounter end={328} duration={2.5} active={cardInView} />
           </p>
           <div className="mt-3 flex h-8 items-end gap-1">

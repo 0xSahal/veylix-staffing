@@ -1,21 +1,15 @@
-import { Instrument_Sans, Inter, Syne } from 'next/font/google'
+import { Bricolage_Grotesque, Inter } from 'next/font/google'
 
 export const inter = Inter({
   subsets: ['latin'],
+  display: 'swap',
   variable: '--font-inter',
-  display: 'swap',
+  weight: ['400', '500', '600', '700'],
 })
 
-export const syne = Syne({
+export const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
-  variable: '--font-syne',
   display: 'swap',
-})
-
-/** Premium condensed display for marketing hero headlines only */
-export const instrumentSans = Instrument_Sans({
-  subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  variable: '--font-hero',
-  display: 'swap',
+  variable: '--font-bricolage',
+  weight: ['400', '500', '600', '700', '800'],
 })

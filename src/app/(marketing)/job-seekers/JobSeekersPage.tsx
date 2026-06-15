@@ -10,10 +10,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight } from 'lucide-react'
 
 import { Container } from '@/components/common/Container'
+import HeroImageOverlay from '@/components/layout/HeroImageOverlay'
 import { DynamicIcon } from '@/components/solutions/DynamicIcon'
 import { routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { heroImageClassName } from '@/lib/hero-image-position'
 
 export type JobSeekerResource = {
   category: string
@@ -199,16 +201,10 @@ export default function JobSeekersPage({
             alt=""
             fill
             priority
-            className="object-cover object-center"
+            className={heroImageClassName('/images/job-seekers/hero.webp')}
             sizes="100vw"
           />
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `linear-gradient(to bottom, ${NAVY}CC, ${NAVY}B3, ${NAVY}D9)`,
-            }}
-            aria-hidden
-          />
+          <HeroImageOverlay />
         </div>
 
         <Container className="relative z-20 py-16">
@@ -313,7 +309,7 @@ export default function JobSeekersPage({
                 className="seekers-step relative z-10 px-0 pb-12 first:pl-0 last:pr-0 md:px-10 md:pb-0"
               >
                 <div
-                  className="mb-8 flex h-14 w-14 items-center justify-center rounded-full font-display text-base font-extrabold text-white"
+                  className="mb-8 flex h-14 w-14 items-center justify-center rounded-full font-display text-base font-bold text-white"
                   style={{
                     backgroundColor: BLUE,
                     boxShadow: '0 10px 25px rgba(26,110,220,0.25)',
