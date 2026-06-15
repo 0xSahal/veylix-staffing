@@ -11,3 +11,6 @@ export const HERO_VIDEO_URL =
 export const HERO_MATCH_SCORE_PERCENT = 94
 
 export const HERO_PLACEMENT_CANDIDATE_IMAGE = '/images/hero-placement-candidate.webp'
+
+/** Keeps standing faces visible in the square hero-bg crop */
+export const HERO_BG_OBJECT_POSITION = 'center 30%'
