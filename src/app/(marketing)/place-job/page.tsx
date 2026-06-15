@@ -4,7 +4,9 @@ import Link from 'next/link'
 import { Container } from '@/components/common/Container'
 import TrustSidebar from '@/components/forms/place-job/TrustSidebar'
 import PlaceJobForm from '@/components/forms/PlaceJobForm'
+import HeroImageOverlay from '@/components/layout/HeroImageOverlay'
 import { routes } from '@/config/routes'
+import { heroImageClassName } from '@/lib/hero-image-position'
 import { createPageMetadata } from '@/lib/metadata'
 
 export const metadata = createPageMetadata({
@@ -24,13 +26,10 @@ export default function PlaceJobPage(): React.ReactNode {
             alt=""
             fill
             priority
-            className="object-cover object-center"
+            className={heroImageClassName('/images/recruting-interview.webp')}
             sizes="100vw"
           />
-          <div
-            className="absolute inset-0 bg-gradient-to-b from-vx-navy/75 via-vx-navy/65 to-vx-navy/80"
-            aria-hidden
-          />
+          <HeroImageOverlay />
         </div>
 
         <Container className="relative z-10 py-16">

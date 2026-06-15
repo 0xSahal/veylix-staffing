@@ -14,8 +14,6 @@ const staticPaths = [
   routes.temporaryStaffing,
   routes.directHire,
   routes.contractToHire,
-  routes.payrolling,
-  routes.training,
   routes.executiveSearch,
   routes.industries,
   routes.jobSeekers,

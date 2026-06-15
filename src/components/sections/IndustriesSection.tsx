@@ -1,141 +1,264 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 import Image from 'next/image'
 
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-import { getLayoutAlignedScrollDistance, NAVBAR_HEIGHT_PX } from '@/constants/layout'
 import { INDUSTRY_CARDS } from '@/constants/sections/industries'
-import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
+const AUTO_SCROLL_SPEED = 30
+const CARD_GAP_PX = 24
+const MANUAL_SLIDE_MS = 480
+
+type ManualSlide = {
+  startTime: number
+  duration: number
+  delta: number
+}
+
+function easeOutCubic(t: number): number {
+  return 1 - Math.pow(1 - t, 3)
+}
+
 export default function IndustriesSection(): React.ReactNode {
-  const triggerRef = useRef<HTMLDivElement>(null)
-  const trackRef = useRef<HTMLDivElement>(null)
-  const progressRef = useRef<HTMLDivElement>(null)
-  const [progress, setProgress] = useState(0)
-  const isDesktop = useMediaQuery('(min-width: 1024px)')
   const prefersReduced = usePrefersReducedMotion()
 
-  useEffect(() => {
-    if (!isDesktop || prefersReduced) return
-
-    gsap.registerPlugin(ScrollTrigger)
-    const trigger = triggerRef.current
-    const track = trackRef.current
-    if (!trigger || !track) return
-
-    const measureScrollDistance = (): number =>
-      getLayoutAlignedScrollDistance(track.scrollWidth, window.innerWidth)
-
-    const animation = gsap.to(track, {
-      x: () => -measureScrollDistance(),
-      ease: 'none',
-      scrollTrigger: {
-        trigger,
-        start: `top top+=${NAVBAR_HEIGHT_PX}`,
-        pin: true,
-        scrub: 1,
-        end: () => `+=${measureScrollDistance()}`,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          setProgress(self.progress)
-          if (progressRef.current) {
-            progressRef.current.style.width = `${self.progress * 100}%`
-          }
-        },
-      },
-    })
-
-    const handleResize = (): void => {
-      ScrollTrigger.refresh()
-    }
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      animation.scrollTrigger?.kill()
-      animation.kill()
-    }
-  }, [isDesktop, prefersReduced])
-
-  const industriesHeader = (
-    <div className="container-vx mb-12 text-center">
-      <span className="section-label">INDUSTRIES</span>
-      <h2 className="heading-h2 mt-4 text-vx-navy">Recruiters who know your field</h2>
-      <p className="mx-auto mt-4 max-w-xl font-body text-base leading-relaxed text-vx-muted sm:whitespace-nowrap sm:text-lg">
-        Your recruiter has hired in your space before. That saves you weeks of explaining
-        the basics.
-      </p>
-    </div>
-  )
-
   return (
-    <section className="bg-white">
-      {isDesktop ? (
-        <>
-          {/* Section spacing: scrolls away before the pin + horizontal drag begins */}
-          <div className="pt-[72px] md:pt-[96px] lg:pt-[120px]" aria-hidden="true" />
+    <section className="section-vx bg-white">
+      <div className="container-vx mb-12 text-center">
+        <span className="section-label">INDUSTRIES</span>
+        <h2 className="heading-h2 mt-4 text-vx-navy">Recruiters who know your field</h2>
+        <p className="mx-auto mt-4 max-w-xl font-body text-base leading-relaxed text-vx-muted sm:whitespace-nowrap sm:text-lg">
+          Your recruiter has hired in your space before. That saves you weeks of
+          explaining the basics.
+        </p>
+      </div>
 
-          <div ref={triggerRef} className="pb-[72px] md:pb-[96px] lg:pb-[120px]">
-            {industriesHeader}
-
-            <div className="overflow-hidden">
-              <div ref={trackRef} className="track-align-layout flex w-max gap-6">
-                {INDUSTRY_CARDS.map((card) => (
-                  <IndustryCard key={card.title} card={card} />
-                ))}
-              </div>
-            </div>
-
-            <div className="container-vx mt-8 flex items-center gap-6">
-              <p className="shrink-0 text-xs text-vx-muted">Drag to explore →</p>
-              <div className="h-1 min-w-0 flex-1 rounded-full bg-vx-border">
-                <div
-                  ref={progressRef}
-                  className="h-full rounded-full bg-vx-blue transition-[width] duration-100"
-                  style={{ width: `${progress * 100}%` }}
-                />
-              </div>
-            </div>
-          </div>
-        </>
-      ) : (
-        <div className="section-vx">
-          {industriesHeader}
-
-          <div className="container-vx grid grid-cols-2 gap-4 sm:grid-cols-3">
+      {prefersReduced ? (
+        <div className="container-vx">
+          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {INDUSTRY_CARDS.map((card) => (
-              <IndustryCard key={card.title} card={card} staticLayout />
+              <li key={card.title}>
+                <IndustryCard card={card} />
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
+      ) : (
+        <IndustriesCarousel />
       )}
     </section>
   )
 }
 
+function IndustriesCarousel(): React.ReactNode {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const autoOffsetRef = useRef(0)
+  const manualSlideRef = useRef<ManualSlide | null>(null)
+  const pausedRef = useRef(false)
+  const loopWidthRef = useRef(0)
+  const rafRef = useRef(0)
+
+  const applyTransform = useCallback((offset: number): void => {
+    const track = trackRef.current
+    if (!track) return
+    track.style.transform = `translate3d(${offset}px, 0, 0)`
+  }, [])
+
+  const normalizeOffset = useCallback((offset: number): number => {
+    const loopWidth = loopWidthRef.current
+    if (loopWidth <= 0) return offset
+
+    let next = offset
+    while (next <= -loopWidth) {
+      next += loopWidth
+    }
+    while (next > 0) {
+      next -= loopWidth
+    }
+    return next
+  }, [])
+
+  const getScrollStep = useCallback((): number => {
+    const track = trackRef.current
+    if (!track) return 324
+
+    const card = track.querySelector<HTMLElement>('[data-industry-card]')
+    return card ? card.offsetWidth + CARD_GAP_PX : 324
+  }, [])
+
+  const commitManualSlide = useCallback(
+    (now: number): number => {
+      const slide = manualSlideRef.current
+      if (!slide) return 0
+
+      const progress = Math.min((now - slide.startTime) / slide.duration, 1)
+      const eased = easeOutCubic(progress)
+
+      if (progress >= 1) {
+        autoOffsetRef.current = normalizeOffset(autoOffsetRef.current + slide.delta)
+        manualSlideRef.current = null
+        return 0
+      }
+
+      return slide.delta * eased
+    },
+    [normalizeOffset]
+  )
+
+  const scrollByDirection = useCallback(
+    (direction: 'left' | 'right'): void => {
+      const step = getScrollStep()
+      const delta = direction === 'left' ? step : -step
+      const now = performance.now()
+
+      if (manualSlideRef.current) {
+        const { startTime, duration, delta: activeDelta } = manualSlideRef.current
+        const progress = Math.min((now - startTime) / duration, 1)
+        autoOffsetRef.current = normalizeOffset(
+          autoOffsetRef.current + activeDelta * easeOutCubic(progress)
+        )
+      }
+
+      manualSlideRef.current = {
+        startTime: now,
+        duration: MANUAL_SLIDE_MS,
+        delta,
+      }
+    },
+    [getScrollStep, normalizeOffset]
+  )
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return
+
+    const measureLoop = (): void => {
+      loopWidthRef.current = track.scrollWidth / 2
+      autoOffsetRef.current = normalizeOffset(autoOffsetRef.current)
+    }
+
+    measureLoop()
+
+    const resizeObserver = new ResizeObserver(measureLoop)
+    resizeObserver.observe(track)
+
+    let lastTime = performance.now()
+
+    const tick = (now: number): void => {
+      const dt = Math.min(now - lastTime, 50) / 1000
+      lastTime = now
+
+      if (!pausedRef.current && loopWidthRef.current > 0) {
+        autoOffsetRef.current = normalizeOffset(
+          autoOffsetRef.current - AUTO_SCROLL_SPEED * dt
+        )
+      }
+
+      const manualOffset = commitManualSlide(now)
+      applyTransform(autoOffsetRef.current + manualOffset)
+
+      rafRef.current = requestAnimationFrame(tick)
+    }
+
+    rafRef.current = requestAnimationFrame(tick)
+
+    return () => {
+      cancelAnimationFrame(rafRef.current)
+      resizeObserver.disconnect()
+    }
+  }, [applyTransform, commitManualSlide, normalizeOffset])
+
+  return (
+    <div>
+      <div
+        className="overflow-hidden"
+        onMouseEnter={() => {
+          pausedRef.current = true
+        }}
+        onMouseLeave={() => {
+          pausedRef.current = false
+        }}
+      >
+        <div ref={trackRef} className="flex w-max will-change-transform">
+          {INDUSTRY_CARDS.map((card) => (
+            <div key={card.title} className="mx-3 shrink-0">
+              <IndustryCard card={card} />
+            </div>
+          ))}
+          {INDUSTRY_CARDS.map((card) => (
+            <div
+              key={`${card.title}-repeat`}
+              className="mx-3 shrink-0"
+              aria-hidden="true"
+            >
+              <IndustryCard card={card} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <nav
+        className="container-vx mt-8 flex justify-center gap-3"
+        aria-label="Industries carousel"
+      >
+        <CarouselButton
+          direction="left"
+          label="Previous industry"
+          onClick={() => scrollByDirection('left')}
+        />
+        <CarouselButton
+          direction="right"
+          label="Next industry"
+          onClick={() => scrollByDirection('right')}
+        />
+      </nav>
+    </div>
+  )
+}
+
+function CarouselButton({
+  direction,
+  label,
+  onClick,
+}: {
+  direction: 'left' | 'right'
+  label: string
+  onClick: () => void
+}): React.ReactNode {
+  const Icon = direction === 'left' ? ChevronLeft : ChevronRight
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className="inline-flex h-10 w-10 items-center justify-center rounded-btn border border-vx-border bg-white text-vx-body transition-all duration-200 hover:border-vx-blue hover:text-vx-blue active:scale-95"
+    >
+      <Icon size={18} aria-hidden />
+    </button>
+  )
+}
+
 function IndustryCard({
   card,
-  staticLayout = false,
 }: {
   card: (typeof INDUSTRY_CARDS)[number]
-  staticLayout?: boolean
 }): React.ReactNode {
   return (
     <article
-      className={`group relative cursor-pointer overflow-hidden rounded-card-lg ${staticLayout ? 'h-[220px] sm:h-[260px]' : 'h-[400px] w-[300px] flex-shrink-0'}`}
+      data-industry-card
+      className="group relative h-[280px] w-[220px] shrink-0 cursor-pointer overflow-hidden rounded-card-lg sm:h-[340px] sm:w-[260px] lg:h-[400px] lg:w-[300px]"
     >
       <Image
         src={card.image}
         alt={card.alt}
         fill
         className="object-cover transition-transform duration-700 group-hover:scale-110"
-        sizes={staticLayout ? '(max-width: 640px) 100vw, 50vw' : '300px'}
+        sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 300px"
         loading="lazy"
       />
       <div

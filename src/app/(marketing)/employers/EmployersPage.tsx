@@ -11,6 +11,7 @@ import { ArrowRight } from 'lucide-react'
 
 import type { BlogPostPreview } from '@/components/cards/BlogCard'
 import { Container } from '@/components/common/Container'
+import HeroImageOverlay from '@/components/layout/HeroImageOverlay'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
 import { routes } from '@/config/routes'
 import {
@@ -20,6 +21,7 @@ import {
   employerStats,
 } from '@/constants/pages/employers'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { heroImageClassName } from '@/lib/hero-image-position'
 import { cn } from '@/lib/utils'
 
 const SCROLL_START = 'top 82%'
@@ -160,16 +162,10 @@ export default function EmployersPage({
             alt=""
             fill
             priority
-            className="object-cover object-center"
+            className={heroImageClassName('/images/about-sitting-group.webp')}
             sizes="100vw"
           />
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `linear-gradient(to bottom, ${NAVY}BF, ${NAVY}A6, ${NAVY}CC)`,
-            }}
-            aria-hidden
-          />
+          <HeroImageOverlay />
         </div>
 
         <Container className="relative z-10 py-20">
@@ -229,7 +225,7 @@ export default function EmployersPage({
                       'border-b border-[#E2E8F0] md:border-b-0 md:border-r'
                   )}
                 >
-                  <span className="mb-3 font-display text-4xl font-extrabold leading-none text-[#0F2246] md:text-5xl">
+                  <span className="mb-3 font-display text-4xl font-bold leading-none text-[#0F2246] md:text-5xl">
                     <AnimatedCounter end={stat.end} suffix={stat.suffix} duration={2} />
                   </span>
                   <span className="max-w-[140px] font-body text-sm font-medium leading-snug text-[#64748B] md:text-base">
@@ -266,7 +262,7 @@ export default function EmployersPage({
               >
                 <div className="mb-8 flex items-center gap-4">
                   <div
-                    className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full font-display text-lg font-extrabold text-white shadow-lg"
+                    className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full font-display text-lg font-bold text-white shadow-lg"
                     style={{
                       backgroundColor: BLUE,
                       boxShadow: '0 10px 25px rgba(26,110,220,0.25)',

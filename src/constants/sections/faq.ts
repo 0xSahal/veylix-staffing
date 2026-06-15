@@ -25,9 +25,9 @@ export const FAQ_ITEMS: FaqItem[] = [
       "Technology, healthcare, finance, engineering, legal, logistics, executive leadership, sales, and creative. Within each, our recruiters go deep, not wide. You'll always deal with someone who knows your world.",
   },
   {
-    question: "What's the cost? Is there an upfront fee?",
+    question: "What's the cost?",
     answer:
-      "No upfront fees. For permanent placements, we work on a percentage-of-salary model. For contract and temp staffing, we use an hourly bill rate. We'll give you a full cost breakdown in the first call, no surprises.",
+      "For permanent placements, we work on a percentage-of-salary model. For contract and temp staffing, we use an hourly bill rate. We'll give you a full cost breakdown in the first call, no surprises.",
   },
   {
     question: "What happens if a placement doesn't work out?",
@@ -37,7 +37,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Do you handle compliance and employment law?',
     answer:
-      'Yes. Especially for contract and temp placements, we handle payrolling, compliance, benefits administration, and reporting. We stay current on labor law across all regions we work in.',
+      'Yes. Especially for contract and temp placements, we handle compliance, benefits administration, and reporting. We stay current on labor law across all regions we work in.',
   },
   {
     question: 'How do I get started?',

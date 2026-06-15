@@ -5,7 +5,7 @@ import { siteConfig } from '@/config/site'
 const TRUST_POINTS = [
   'Average 48-hour candidate shortlist submission',
   'Pre-screened and reference-checked talent',
-  'No placement fee until you hire',
+  '90-day replacement guarantee on permanent hires',
   'Dedicated account manager assigned',
   'Active across North America',
 ] as const

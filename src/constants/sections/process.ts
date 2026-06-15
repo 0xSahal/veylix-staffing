@@ -1,4 +1,11 @@
-import { Briefcase, CheckSquare, Rocket, Search, Users } from 'lucide-react'
+import {
+  FileText,
+  MessageCircle,
+  Rocket,
+  Send,
+  TrendingUp,
+  UserCircle,
+} from 'lucide-react'
 
 import type { LucideIcon } from 'lucide-react'
 
@@ -12,32 +19,38 @@ export type ProcessStep = {
 export const PROCESS_STEPS: ProcessStep[] = [
   {
     number: '01',
-    title: 'Discovery Call',
-    body: "You walk us through the role, timeline, culture, and what's already been tried. More context up front means fewer wrong names later.",
-    icon: Search,
+    title: 'Placement Support',
+    body: 'Offer guidance, onboarding help, and check-ins at 30, 60, and 90 days. A great placement does not end when you accept.',
+    icon: Rocket,
   },
   {
     number: '02',
-    title: 'Job Architecture',
-    body: "We write a real candidate brief, not a recycled job post. Most agencies skip this step. We don't.",
-    icon: Briefcase,
+    title: 'Resume Building',
+    body: 'We sharpen your resume and online profile so employers see your strengths clearly, not just a list of keywords.',
+    icon: FileText,
   },
   {
     number: '03',
-    title: 'Talent Sourcing',
-    body: 'Database, LinkedIn, referrals, and direct outreach. We go where strong candidates actually are, not where everyone else is posting.',
-    icon: Users,
+    title: 'Job Applications',
+    body: 'We match you to roles that fit your skills and goals, then submit applications to employers in our network on your behalf.',
+    icon: Send,
   },
   {
     number: '04',
-    title: 'Vetting & Shortlist',
-    body: "Interviewed, reference-checked, and screened for fit. You only meet people we'd put on our own team.",
-    icon: CheckSquare,
+    title: 'Mock Interviews',
+    body: 'Practice with realistic scenarios and honest feedback before the real thing. You walk in prepared, not hoping for the best.',
+    icon: MessageCircle,
   },
   {
     number: '05',
-    title: 'Placement & Support',
-    body: "Offer support, start date, then check-ins at 30, 60, and 90 days. A good hire isn't done when they sign.",
-    icon: Rocket,
+    title: 'Dedicated Career Coach',
+    body: 'One coach who knows your story, advocates for you, and stays in your corner from first call to signed offer.',
+    icon: UserCircle,
+  },
+  {
+    number: '06',
+    title: 'Growth Champion',
+    body: 'We stay connected after you land the role. When you are ready for your next move, we are already familiar with your trajectory.',
+    icon: TrendingUp,
   },
 ]

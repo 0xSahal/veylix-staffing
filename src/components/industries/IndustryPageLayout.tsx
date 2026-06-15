@@ -10,10 +10,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight } from 'lucide-react'
 
 import { Container } from '@/components/common/Container'
+import HeroImageOverlay from '@/components/layout/HeroImageOverlay'
 import { DynamicIcon } from '@/components/solutions/DynamicIcon'
 import { routes } from '@/config/routes'
 import { allIndustries, type Industry } from '@/data/industries'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { heroImageClassName } from '@/lib/hero-image-position'
 
 const NAVY = '#0F2246'
 
@@ -93,16 +95,10 @@ function IndustryHero({ industry }: IndustryProp): React.ReactNode {
           alt=""
           fill
           priority
-          className="object-cover object-center"
+          className={heroImageClassName(industry.heroImage)}
           sizes="100vw"
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `linear-gradient(to bottom, ${NAVY}CC, ${NAVY}B3, ${NAVY}D9)`,
-          }}
-          aria-hidden
-        />
+        <HeroImageOverlay />
       </div>
 
       <Container className="relative z-10 py-16">

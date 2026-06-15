@@ -4,9 +4,8 @@
 
 /* ─── Font Variables ──────────────────────────────────────────── */
 :root {
-  --font-syne: 'Syne', sans-serif;
+  --font-bricolage: 'Bricolage Grotesque', sans-serif;
   --font-inter: 'Inter', sans-serif;
-  --font-hero: 'Instrument Sans', sans-serif;
   --announcement-height: 44px;
   --announcement-h: 44px;
   --navbar-height: 92px;
@@ -88,6 +87,16 @@
     color: inherit;
     text-decoration: none;
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-bricolage), sans-serif;
+    font-optical-sizing: auto;
+  }
 }
 
 /* ─── Component Utilities ─────────────────────────────────────── */
@@ -108,12 +117,8 @@
   }
 
   .heading-hero {
-    @apply font-display font-extrabold leading-[0.98] tracking-[-0.03em];
+    @apply font-display font-bold leading-[0.98] tracking-[-0.03em];
     font-size: clamp(2.125rem, 5.2vw, 3.5rem);
-  }
-
-  .hero-status-pill {
-    @apply inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 backdrop-blur-md;
   }
 
   .dual-cta-left {

@@ -26,8 +26,9 @@ const config: Config = {
         'vx-border-dark': 'rgba(255,255,255,0.08)',
       },
       fontFamily: {
-        display: ['var(--font-syne)', 'sans-serif'],
-        hero: ['var(--font-hero)', 'var(--font-syne)', 'sans-serif'],
+        display: ['var(--font-bricolage)', 'sans-serif'],
+        hero: ['var(--font-bricolage)', 'sans-serif'],
+        sans: ['var(--font-inter)', 'sans-serif'],
         body: ['var(--font-inter)', 'sans-serif'],
       },
       fontSize: {

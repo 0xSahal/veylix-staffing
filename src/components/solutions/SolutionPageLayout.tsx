@@ -11,11 +11,13 @@ import { ArrowRight, Check, Minus, Plus } from 'lucide-react'
 
 import { sidebarReachOut } from '@/app/actions/forms'
 import { Container } from '@/components/common/Container'
+import HeroImageOverlay from '@/components/layout/HeroImageOverlay'
 import { DynamicIcon } from '@/components/solutions/DynamicIcon'
 import { routes } from '@/config/routes'
 import { allSolutions, type Solution } from '@/data/solutions'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { formFieldString } from '@/lib/form'
+import { heroImageClassName } from '@/lib/hero-image-position'
 import { cn } from '@/lib/utils'
 
 const NAVY = '#0F2246'
@@ -174,16 +176,10 @@ function SolutionHero({ solution }: SolutionProp): React.ReactNode {
           alt=""
           fill
           priority
-          className="object-cover object-center"
+          className={heroImageClassName(solution.heroImage)}
           sizes="100vw"
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `linear-gradient(to bottom, ${NAVY}CC, ${NAVY}B3, ${NAVY}D9)`,
-          }}
-          aria-hidden
-        />
+        <HeroImageOverlay />
       </div>
 
       <Container className="relative z-10 py-16">
@@ -246,7 +242,7 @@ function SolutionOverview({ solution }: SolutionProp): React.ReactNode {
                     i < solution.stats.length - 1 && 'sm:border-r sm:border-[#E2E8F0]'
                   )}
                 >
-                  <span className="mb-2 font-display text-4xl font-extrabold leading-none text-[#0F2246] sm:text-5xl md:text-6xl">
+                  <span className="mb-2 font-display text-4xl font-bold leading-none text-[#0F2246] sm:text-5xl md:text-6xl">
                     {stat.number}
                   </span>
                   <span className="max-w-[120px] font-body text-xs font-medium leading-snug text-[#64748B] md:text-sm">
@@ -446,7 +442,7 @@ function SolutionProcess({ solution }: SolutionProp): React.ReactNode {
               className="solution-process-step relative z-10 px-0 pb-12 first:pl-0 last:pr-0 md:px-10 md:pb-0"
             >
               <div
-                className="mb-8 flex h-14 w-14 items-center justify-center rounded-full font-display text-base font-extrabold text-white shadow-lg"
+                className="mb-8 flex h-14 w-14 items-center justify-center rounded-full font-display text-base font-bold text-white shadow-lg"
                 style={{
                   backgroundColor: BLUE,
                   boxShadow: '0 10px 25px rgba(26,110,220,0.3)',

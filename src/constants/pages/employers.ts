@@ -9,20 +9,22 @@ import {
   Search,
   UserPlus,
   Repeat,
-  Wallet,
-  GraduationCap,
 } from 'lucide-react'
 
 import type { BenefitItem } from '@/components/layout/BenefitGrid'
 import type { ProcessStep } from '@/components/layout/ProcessSteps'
 import { routes } from '@/config/routes'
+import { siteConfig } from '@/config/site'
 
 import type { LucideIcon } from 'lucide-react'
 
+const currentYear = new Date().getFullYear()
+const yearsOfExperience = currentYear - siteConfig.foundedYear
+
 export const employerStats = [
-  { end: 10, suffix: '+', label: 'Years of Experience' },
+  { end: yearsOfExperience, suffix: '+', label: 'Years of Experience' },
   { end: 150, suffix: '+', label: 'Companies Partnered' },
-  { end: 5000, suffix: '+', label: 'Recruitments Completed' },
+  { end: 500, suffix: '+', label: 'Recruitments Completed' },
 ] as const
 
 export const employerProcessSteps: ProcessStep[] = [
@@ -69,8 +71,8 @@ export const employerBenefits: BenefitItem[] = [
   },
   {
     icon: Shield,
-    title: 'Compliance & Payroll Handled',
-    body: 'We manage employment overhead when you need payrolling or contract staff.',
+    title: 'Compliance Handled',
+    body: 'We manage employment overhead and compliance for contract and temporary staff.',
   },
   {
     icon: UserCheck,
@@ -107,20 +109,6 @@ export const employerSolutions: EmployerSolution[] = [
       'Try before you commit. Evaluate candidates on the job before converting to permanent.',
     href: routes.contractToHire,
     icon: Repeat,
-  },
-  {
-    title: 'Payrolling',
-    description:
-      'We handle employment overhead, payroll, and compliance for your contract workforce.',
-    href: routes.payrolling,
-    icon: Wallet,
-  },
-  {
-    title: 'Training',
-    description:
-      'Onboarding and skills development programs tailored to your team’s specific requirements.',
-    href: routes.training,
-    icon: GraduationCap,
   },
   {
     title: 'Executive Search',

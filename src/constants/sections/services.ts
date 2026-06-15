@@ -44,16 +44,7 @@ export const SERVICE_CARDS: ServiceCard[] = [
     image:
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80&fit=crop',
     alt: 'Recruitment process outsourcing team managing enterprise talent pipeline',
-    href: routes.training,
-  },
-  {
-    label: 'PAYROLLING',
-    title: 'Payrolling & Compliance',
-    body: 'Use your contractors or ours. Payroll, benefits, compliance, and reporting sit with us so you can focus on the work.',
-    image:
-      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80&fit=crop',
-    alt: 'Payroll and compliance management for contingent workforce',
-    href: routes.payrolling,
+    href: routes.contact,
   },
 ]
 
