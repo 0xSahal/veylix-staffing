@@ -12,6 +12,7 @@ import MagneticButton from '@/components/ui/MagneticButton'
 import SplitText from '@/components/ui/SplitText'
 import { siteConfig } from '@/config/site'
 import {
+  HERO_BG_OBJECT_POSITION,
   HERO_FLOAT_DURATION_A_S,
   HERO_FLOAT_DURATION_B_S,
   HERO_FLOAT_DURATION_C_S,
@@ -22,7 +23,6 @@ import {
 } from '@/constants/hero'
 import { useInViewAnimation } from '@/hooks/useInViewAnimation'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
-import { heroImageClassName } from '@/lib/hero-image-position'
 
 const ParticlesBackground = dynamic(() => import('@/components/ui/ParticlesBackground'), {
   ssr: false,
@@ -73,7 +73,8 @@ export default function HeroSection(): React.ReactNode {
           fill
           priority
           quality={90}
-          className={heroImageClassName('/images/hero-bg.webp')}
+          className="object-cover object-[center_30%]"
+          style={{ objectPosition: HERO_BG_OBJECT_POSITION }}
           aria-hidden="true"
         />
       </div>
@@ -84,7 +85,8 @@ export default function HeroSection(): React.ReactNode {
         loop
         playsInline
         aria-hidden="true"
-        className="absolute inset-0 z-[1] h-full w-full object-cover object-center"
+        className="absolute inset-0 z-[1] h-full w-full object-cover object-[center_30%]"
+        style={{ objectPosition: HERO_BG_OBJECT_POSITION }}
         onError={(e) => {
           const el = e.currentTarget
           el.style.display = 'none'
