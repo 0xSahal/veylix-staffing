@@ -18,7 +18,7 @@ export default function StatsBar(): React.ReactNode {
       <div className="container-vx">
         <div
           ref={ref as React.RefObject<HTMLDivElement>}
-          className="grid grid-cols-2 gap-px overflow-hidden bg-vx-border md:grid-cols-3 lg:grid-cols-5"
+          className="grid grid-cols-2 gap-px overflow-hidden bg-white md:grid-cols-3 lg:grid-cols-5 lg:bg-vx-border"
         >
           {STATS.map((stat, index) => (
             <m.div
