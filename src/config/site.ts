@@ -18,6 +18,6 @@ export const siteConfig = {
     twitter: 'https://twitter.com/veylixstaffing',
     instagram:
       'https://www.instagram.com/veylix_staffing?utm_source=qr&igsh=MTB1dXV1Z3I2bGlqNQ==',
-    facebook: 'https://facebook.com/veylixstaffing',
+    facebook: 'https://www.facebook.com/profile.php?id=61590816692391',
   },
 } as const
