@@ -7,7 +7,7 @@ const TRUST_POINTS = [
   'Pre-screened and reference-checked talent',
   '90-day replacement guarantee on permanent hires',
   'Dedicated account manager assigned',
-  'Active across North America',
+  'Active across the US & Canada',
 ] as const
 
 export default function TrustSidebar(): React.ReactNode {

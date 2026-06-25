@@ -3,7 +3,7 @@ export const siteConfig = {
   shortName: 'Veylix',
   logoSrc: '/icon/Logo.webp',
   description:
-    'Staffing for teams that care who they hire. Permanent placement, contract staffing, and executive search across North America, the UK, and Australia.',
+    'Staffing for teams that care who they hire. Permanent placement, contract staffing, and executive search across the United States and Canada.',
   url: 'https://www.veylixstaffing.com',
   email: 'contact@veylixstaffing.com',
   phone: '+91 7048604026',
