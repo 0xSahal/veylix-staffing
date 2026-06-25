@@ -14,7 +14,7 @@ import {
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 const MESSAGES = [
-  '✦ Hiring across North America: first shortlist in 72 hours →',
+  '✦ Hiring across the US & Canada: first shortlist in 72 hours →',
   `✦ 10,000+ people placed since ${siteConfig.foundedYear}. Join the talent network →`,
   '✦ Executive search now open: confidential, fast, no job-board noise →',
 ] as const

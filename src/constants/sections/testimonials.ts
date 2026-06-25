@@ -31,7 +31,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     result: '0 → 22 Hires · 8 Weeks',
     quote:
-      "We were building our London office from scratch. Veylix placed 22 people across five departments in two months. Fast, but not sloppy. I've worked with a lot of agencies. This one actually listens.",
+      "We were building our Toronto office from scratch. Veylix placed 22 people across five departments in two months. Fast, but not sloppy. I've worked with a lot of agencies. This one actually listens.",
     name: 'James Thornton',
     title: 'Founder & CEO · Solara Media',
     avatar:

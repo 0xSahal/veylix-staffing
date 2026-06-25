@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { m } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowRight, Globe2, Play, ShieldCheck, Target, Zap } from 'lucide-react'
+import { ArrowRight, Globe2, ShieldCheck, Target, Zap } from 'lucide-react'
 
 import SplitText from '@/components/ui/SplitText'
 import { siteConfig } from '@/config/site'
@@ -33,7 +33,7 @@ const FEATURES = [
   {
     icon: Globe2,
     title: '100,000+ Network',
-    desc: 'Vetted talent across North America, UK, and Australia.',
+    desc: 'Vetted talent across the United States and Canada.',
   },
 ] as const
 
@@ -165,8 +165,8 @@ export default function AboutSplit(): React.ReactNode {
             culture, the lot. That&apos;s why people stay.
           </p>
           <p className="mt-3 max-w-lg font-body text-base leading-relaxed text-vx-muted">
-            100,000+ vetted professionals across North America, the UK, and Australia.
-            Size helps. Knowing who&apos;s actually available and interested matters more.
+            100,000+ vetted professionals across the United States and Canada. Size helps.
+            Knowing who&apos;s actually available and interested matters more.
           </p>
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {FEATURES.map(({ icon: Icon, title, desc }) => (
@@ -194,13 +194,16 @@ export default function AboutSplit(): React.ReactNode {
                 className="transition-transform duration-300 group-hover:translate-x-1"
               />
             </Link>
-            <button
-              type="button"
-              className="btn-ghost inline-flex items-center gap-2 text-[15px]"
+            <Link
+              href="/contact"
+              className="group inline-flex items-center gap-1.5 font-body text-[15px] font-semibold text-vx-blue"
             >
-              <Play size={14} />
-              Watch 90s Overview
-            </button>
+              Get in touch
+              <ArrowRight
+                size={14}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
           </div>
         </div>
       </div>

@@ -126,7 +126,7 @@ export default function HeroSection(): React.ReactNode {
                   Permanent · Contract · Executive Search
                 </p>
                 <p className="mt-1.5 font-body text-[13px] text-white/45">
-                  North America, UK &amp; Australia · Est. {siteConfig.foundedYear}
+                  US &amp; Canada · Est. {siteConfig.foundedYear}
                 </p>
               </div>
             </div>

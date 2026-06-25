@@ -30,7 +30,7 @@ function reconcileScrollAnimations(): void {
 }
 
 const STATS = [
-  { value: 500, suffix: '+', label: 'Placements made across North America' },
+  { value: 500, suffix: '+', label: 'Placements made across the US & Canada' },
   { value: 98, suffix: '%', label: 'Client satisfaction rate' },
   { value: 150, suffix: '+', label: 'Active employer partnerships' },
   { value: 10, suffix: '+', label: 'Industries served' },
@@ -364,9 +364,9 @@ export default function AboutPage(): React.ReactNode {
             <div className="my-8 h-[3px] w-12 bg-[#1A6EDC]" aria-hidden />
             <p className="max-w-[620px] font-body text-lg leading-[1.8] text-[#475569]">
               Since {siteConfig.foundedYear}, Veylix Staffing has connected exceptional
-              talent with growing companies across North America, in IT, engineering,
-              healthcare, and professional services. We measure success in retained
-              placements, not filled seats.
+              talent with growing companies across the United States and Canada, in IT,
+              engineering, healthcare, and professional services. We measure success in
+              retained placements, not filled seats.
             </p>
           </div>
         </div>
@@ -382,7 +382,8 @@ export default function AboutPage(): React.ReactNode {
             Our Team at Work
           </p>
           <p className="mt-3 max-w-[640px] font-body text-base leading-[1.8] text-[#475569]">
-            Connecting talent across North America since {siteConfig.foundedYear}.
+            Connecting talent across the United States and Canada since{' '}
+            {siteConfig.foundedYear}.
           </p>
         </Container>
         <div
@@ -563,8 +564,8 @@ export default function AboutPage(): React.ReactNode {
                 Vision
               </p>
               <p className="mt-3 max-w-[340px] font-body text-base leading-[1.8] text-[#94A3B8]">
-                To be the most trusted staffing partner in North America, not the biggest,
-                but the one every serious company calls first.
+                To be the most trusted staffing partner in the United States and Canada,
+                not the biggest, but the one every serious company calls first.
               </p>
             </div>
           </div>

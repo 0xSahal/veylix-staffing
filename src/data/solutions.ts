@@ -188,7 +188,7 @@ export const allSolutions: Solution[] = [
       },
       {
         icon: 'Globe',
-        heading: 'Active Across North America',
+        heading: 'Active Across the US & Canada',
         body: 'Placements across Canada and the United States, with regional recruiters who understand local talent markets.',
       },
     ],
@@ -356,7 +356,7 @@ export const allSolutions: Solution[] = [
       },
       {
         icon: 'Globe',
-        heading: 'Active Across North America',
+        heading: 'Active Across the US & Canada',
         body: 'Placements across Canada and the United States, with regional recruiters who understand local talent markets.',
       },
     ],
@@ -687,7 +687,7 @@ export const allSolutions: Solution[] = [
       },
       {
         icon: 'Globe',
-        heading: 'Active Across North America',
+        heading: 'Active Across the US & Canada',
         body: 'Leadership searches across Canada and the United States, with reach into specialized sectors.',
       },
     ],
