@@ -2,9 +2,11 @@
 
 import { startTransition, useEffect, useState } from 'react'
 
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
 import VeylixLogo from '@/components/ui/VeylixLogo'
-import { useMounted } from '@/hooks/useMounted'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { SplashReadyProvider } from '@/hooks/useSplashReady'
 
 const SPLASH_MIN_MS = 2200
 const EXIT_MS = 500
@@ -14,26 +16,40 @@ type PageTransitionProps = {
 }
 
 export function PageTransition({ children }: PageTransitionProps): React.ReactNode {
-  const mounted = useMounted()
   const prefersReduced = usePrefersReducedMotion()
   const [exiting, setExiting] = useState(false)
-  const [animationComplete, setAnimationComplete] = useState(false)
+  const [overlayGone, setOverlayGone] = useState(false)
+  const [contentReady, setContentReady] = useState(false)
 
-  const showOverlay = mounted && !prefersReduced && !animationComplete
+  // Splash is in the SSR HTML so the hero never paints first.
+  const showOverlay = !overlayGone
 
   useEffect(() => {
-    if (!mounted || prefersReduced) return
+    if (prefersReduced) {
+      startTransition(() => {
+        setContentReady(true)
+        setOverlayGone(true)
+      })
+      return
+    }
 
     const startTime = Date.now()
     let assetsReadyAt = document.readyState === 'complete' ? 0 : null
     let exitTimer: ReturnType<typeof setTimeout> | undefined
     let unmountTimer: ReturnType<typeof setTimeout> | undefined
 
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
     const beginExit = (): void => {
+      // Start page animations as the splash begins fading out.
       setExiting(true)
+      startTransition(() => {
+        setContentReady(true)
+      })
       unmountTimer = setTimeout(() => {
         startTransition(() => {
-          setAnimationComplete(true)
+          setOverlayGone(true)
         })
       }, EXIT_MS)
     }
@@ -62,14 +78,23 @@ export function PageTransition({ children }: PageTransitionProps): React.ReactNo
     }
 
     return () => {
+      document.body.style.overflow = previousOverflow
       if (exitTimer) clearTimeout(exitTimer)
       if (unmountTimer) clearTimeout(unmountTimer)
       window.removeEventListener('load', onLoad)
     }
-  }, [mounted, prefersReduced])
+  }, [prefersReduced])
+
+  useEffect(() => {
+    if (!overlayGone) return
+    document.body.style.overflow = ''
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh()
+    })
+  }, [overlayGone])
 
   return (
-    <>
+    <SplashReadyProvider ready={contentReady || prefersReduced}>
       {showOverlay && (
         <div
           className={`splash-overlay fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-white bg-[radial-gradient(120%_120%_at_50%_30%,#ffffff_40%,#EFF6FF_100%)] px-6 ${exiting ? 'splash-overlay--exit' : ''}`}
@@ -108,6 +133,6 @@ export function PageTransition({ children }: PageTransitionProps): React.ReactNo
         </div>
       )}
       {children}
-    </>
+    </SplashReadyProvider>
   )
 }

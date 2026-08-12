@@ -111,7 +111,7 @@ export function contactEmailTemplates(data: ContactFormData): {
     <p style="margin:0 0 16px;">Thank you for reaching out to Veylix Staffing. We have received your message regarding <strong>${escapeHtml(data.subject)}</strong> and a member of our team will get back to you within <strong>1 business day</strong>.</p>
     <p style="margin:0 0 16px;">If you need immediate assistance, feel free to contact us:</p>
     <p style="margin:0 0 8px;">Email: <a href="mailto:info@veylixstaffing.com" style="color:${BRAND.blue};">info@veylixstaffing.com</a></p>
-    <p style="margin:0 0 16px;">Phone: <a href="tel:+917048604026" style="color:${BRAND.blue};">+91 7048604026</a></p>
+    <p style="margin:0 0 16px;">Phone: <a href="tel:+14849649338" style="color:${BRAND.blue};">+1 (484) 964-9338</a></p>
     <p style="margin:0;color:${BRAND.muted};">We look forward to connecting with you.</p>
   `)
 
@@ -172,7 +172,7 @@ export function jobOrderEmailTemplates(
     <p style="margin:0 0 16px;">Hi ${escapeHtml(data.firstName)},</p>
     <p style="margin:0 0 16px;">Thank you for placing a job order with Veylix Staffing. Your request has been received and assigned order number <strong style="color:${BRAND.blue};">${orderId}</strong>.</p>
     <p style="margin:0 0 16px;">Our team will begin sourcing candidates immediately. You can expect a curated shortlist within <strong>48 hours</strong>. A dedicated account manager will be assigned to your order and will reach out shortly.</p>
-    <p style="margin:0 0 16px;">If your hiring need is urgent, please call us directly at <a href="tel:+917048604026" style="color:${BRAND.blue};">+91 7048604026</a> and reference your order number.</p>
+    <p style="margin:0 0 16px;">If your hiring need is urgent, please call us directly at <a href="tel:+14849649338" style="color:${BRAND.blue};">+1 (484) 964-9338</a> and reference your order number.</p>
     <p style="margin:0;color:${BRAND.muted};">We appreciate your trust in Veylix Staffing.</p>
   `)
 

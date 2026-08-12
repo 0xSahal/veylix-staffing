@@ -23,6 +23,7 @@ import {
 } from '@/constants/hero'
 import { useInViewAnimation } from '@/hooks/useInViewAnimation'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { useSplashReady } from '@/hooks/useSplashReady'
 
 const ParticlesBackground = dynamic(() => import('@/components/ui/ParticlesBackground'), {
   ssr: false,
@@ -46,13 +47,16 @@ const HERO_STAR_IDS = ['star-1', 'star-2', 'star-3', 'star-4', 'star-5'] as cons
 
 export default function HeroSection(): React.ReactNode {
   const prefersReduced = usePrefersReducedMotion()
+  const splashReady = useSplashReady()
   const { ref: cardRef, isInView: cardInView } = useInViewAnimation({
     threshold: 0.5,
     once: true,
   })
 
+  const playIntro = prefersReduced || splashReady
+
   const floatTransition = (duration: number, delay = 0) =>
-    prefersReduced
+    prefersReduced || !splashReady
       ? undefined
       : {
           y: [0, -HERO_FLOAT_OFFSET_PX, 0],
@@ -113,7 +117,7 @@ export default function HeroSection(): React.ReactNode {
           <m.div
             className="mb-7 hidden lg:block"
             initial={prefersReduced ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={playIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-stretch gap-4">
@@ -135,7 +139,7 @@ export default function HeroSection(): React.ReactNode {
           <m.h1
             className="space-y-0.5 sm:space-y-1"
             initial={prefersReduced ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={playIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           >
             <span className="heading-hero block">
@@ -156,7 +160,7 @@ export default function HeroSection(): React.ReactNode {
           <m.p
             className="mb-8 mt-6 max-w-[90vw] font-body text-[15px] leading-[1.7] text-[#94A3B8] sm:max-w-xl sm:text-base lg:max-w-2xl"
             initial={prefersReduced ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={playIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
             transition={{
               delay: SUBHEAD_DELAY_S,
               duration: 0.7,
@@ -171,7 +175,7 @@ export default function HeroSection(): React.ReactNode {
           <m.div
             className="flex flex-col flex-wrap items-stretch gap-4 sm:flex-row sm:items-center"
             initial={prefersReduced ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={playIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
             transition={{
               delay: CTA_DELAY_S,
               duration: 0.6,
@@ -197,7 +201,11 @@ export default function HeroSection(): React.ReactNode {
       <m.div
         className="glass-dark absolute bottom-28 right-8 z-10 hidden w-72 rounded-card p-5 lg:right-16 lg:block xl:right-24"
         initial={prefersReduced ? false : { y: 30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1, ...floatTransition(HERO_FLOAT_DURATION_A_S) }}
+        animate={
+          playIntro
+            ? { y: 0, opacity: 1, ...floatTransition(HERO_FLOAT_DURATION_A_S) }
+            : { y: 30, opacity: 0 }
+        }
         transition={{ delay: CARD_A_DELAY_S, duration: 0.7 }}
       >
         <GlowCard className="rounded-card">
@@ -247,11 +255,15 @@ export default function HeroSection(): React.ReactNode {
       <m.div
         className="glass-dark absolute right-12 top-32 z-10 hidden w-56 rounded-card p-5 lg:right-20 lg:block xl:right-28"
         initial={prefersReduced ? false : { y: 30, opacity: 0 }}
-        animate={{
-          y: 0,
-          opacity: 1,
-          ...floatTransition(HERO_FLOAT_DURATION_B_S, 1),
-        }}
+        animate={
+          playIntro
+            ? {
+                y: 0,
+                opacity: 1,
+                ...floatTransition(HERO_FLOAT_DURATION_B_S, 1),
+              }
+            : { y: 30, opacity: 0 }
+        }
         transition={{ delay: CARD_B_DELAY_S, duration: 0.7 }}
       >
         <GlowCard className="rounded-card">
@@ -273,11 +285,15 @@ export default function HeroSection(): React.ReactNode {
         ref={cardRef as React.RefObject<HTMLDivElement>}
         className="glass-dark absolute bottom-16 left-[52%] z-10 hidden w-64 rounded-card p-5 lg:left-[55%] lg:block"
         initial={prefersReduced ? false : { y: 30, opacity: 0 }}
-        animate={{
-          y: 0,
-          opacity: 1,
-          ...floatTransition(HERO_FLOAT_DURATION_C_S, 2),
-        }}
+        animate={
+          playIntro
+            ? {
+                y: 0,
+                opacity: 1,
+                ...floatTransition(HERO_FLOAT_DURATION_C_S, 2),
+              }
+            : { y: 30, opacity: 0 }
+        }
         transition={{ delay: CARD_C_DELAY_S, duration: 0.7 }}
       >
         <GlowCard className="rounded-card">
@@ -313,7 +329,11 @@ export default function HeroSection(): React.ReactNode {
         <div className="relative flex h-11 w-6 items-start justify-center rounded-full border border-white/25 pt-2">
           <m.span
             className="h-2 w-1 rounded-full bg-white"
-            animate={prefersReduced ? undefined : { y: [0, 14, 0], opacity: [1, 0.4, 1] }}
+            animate={
+              prefersReduced || !splashReady
+                ? undefined
+                : { y: [0, 14, 0], opacity: [1, 0.4, 1] }
+            }
             transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
           />
         </div>
