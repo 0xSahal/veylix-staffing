@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { useSplashReady } from '@/hooks/useSplashReady'
+
 import type { Variants } from 'framer-motion'
 
 type UseInViewAnimationOptions = {
@@ -14,19 +16,22 @@ export function useInViewAnimation(options: UseInViewAnimationOptions = {}): {
 } {
   const { threshold = 0.1, once = true } = options
   const ref = useRef<HTMLElement | null>(null)
-  const [isInView, setIsInView] = useState(false)
+  const [observedInView, setObservedInView] = useState(false)
+  const splashReady = useSplashReady()
 
   useEffect(() => {
+    if (!splashReady) return
+
     const element = ref.current
     if (!element) return
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
-          setIsInView(true)
+          setObservedInView(true)
           if (once) observer.disconnect()
         } else if (!once) {
-          setIsInView(false)
+          setObservedInView(false)
         }
       },
       { threshold }
@@ -34,7 +39,7 @@ export function useInViewAnimation(options: UseInViewAnimationOptions = {}): {
 
     observer.observe(element)
     return () => observer.disconnect()
-  }, [threshold, once])
+  }, [threshold, once, splashReady])
 
-  return { ref, isInView }
+  return { ref, isInView: splashReady && observedInView }
 }
