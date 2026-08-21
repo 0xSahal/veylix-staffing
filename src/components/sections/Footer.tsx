@@ -10,7 +10,7 @@ import SocialIcon from '@/components/ui/SocialIcon'
 import VeylixLogo from '@/components/ui/VeylixLogo'
 import { footerJobSeekerLinks, footerQuickLinks } from '@/config/navigation'
 import { routes, solutionRoutes } from '@/config/routes'
-import { siteConfig } from '@/config/site'
+import { CONTACT_PHONE_ENABLED, siteConfig } from '@/config/site'
 import { getRecaptchaToken } from '@/lib/recaptcha'
 
 const footerColumnHeading =
@@ -175,15 +175,17 @@ export default function Footer(): React.ReactNode {
                 <MapPin size={14} className="mt-0.5 shrink-0 text-[#94a3b8]" />
                 {siteConfig.address}
               </li>
-              <li className="flex items-start gap-2">
-                <Phone size={14} className="mt-0.5 shrink-0 text-[#94a3b8]" />
-                <a
-                  href={`tel:${siteConfig.phone.replace(/\D/g, '')}`}
-                  className="hover:text-[#2563eb]"
-                >
-                  {siteConfig.phone}
-                </a>
-              </li>
+              {CONTACT_PHONE_ENABLED && (
+                <li className="flex items-start gap-2">
+                  <Phone size={14} className="mt-0.5 shrink-0 text-[#94a3b8]" />
+                  <a
+                    href={`tel:${siteConfig.phone.replace(/\D/g, '')}`}
+                    className="hover:text-[#2563eb]"
+                  >
+                    {siteConfig.phone}
+                  </a>
+                </li>
+              )}
               <li className="flex items-start gap-2">
                 <Mail size={14} className="mt-0.5 shrink-0 text-[#94a3b8]" />
                 <a href={`mailto:${siteConfig.email}`} className="hover:text-[#2563eb]">

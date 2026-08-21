@@ -1,6 +1,6 @@
 import { Check, Phone } from 'lucide-react'
 
-import { siteConfig } from '@/config/site'
+import { CONTACT_PHONE_ENABLED, siteConfig } from '@/config/site'
 
 const TRUST_POINTS = [
   'Average 48-hour candidate shortlist submission',
@@ -11,8 +11,6 @@ const TRUST_POINTS = [
 ] as const
 
 export default function TrustSidebar(): React.ReactNode {
-  const telHref = `tel:${siteConfig.phone.replace(/[^+\d]/g, '')}`
-
   return (
     <div className="flex flex-col gap-5">
       <div className="rounded-card border border-vx-border bg-white p-7 shadow-card">
@@ -31,24 +29,28 @@ export default function TrustSidebar(): React.ReactNode {
         </ul>
       </div>
 
-      <div className="rounded-card border border-vx-border bg-white p-7 shadow-card">
-        <p className="mb-3 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-vx-blue">
-          Prefer to talk?
-        </p>
-        <p className="mb-1.5 font-body text-base font-semibold text-vx-navy">
-          Call us directly
-        </p>
-        <p className="mb-5 font-body text-sm text-vx-muted">{siteConfig.officeHours}.</p>
-        <a
-          href={telHref}
-          className="flex items-center gap-2 font-body text-sm font-semibold text-vx-navy transition-colors hover:text-vx-blue"
-        >
-          <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-vx-blue-lt">
-            <Phone className="h-4 w-4 text-vx-blue" aria-hidden />
-          </span>
-          {siteConfig.phone}
-        </a>
-      </div>
+      {CONTACT_PHONE_ENABLED && (
+        <div className="rounded-card border border-vx-border bg-white p-7 shadow-card">
+          <p className="mb-3 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-vx-blue">
+            Prefer to talk?
+          </p>
+          <p className="mb-1.5 font-body text-base font-semibold text-vx-navy">
+            Call us directly
+          </p>
+          <p className="mb-5 font-body text-sm text-vx-muted">
+            {siteConfig.officeHours}.
+          </p>
+          <a
+            href={`tel:${siteConfig.phone.replace(/[^+\d]/g, '')}`}
+            className="flex items-center gap-2 font-body text-sm font-semibold text-vx-navy transition-colors hover:text-vx-blue"
+          >
+            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-vx-blue-lt">
+              <Phone className="h-4 w-4 text-vx-blue" aria-hidden />
+            </span>
+            {siteConfig.phone}
+          </a>
+        </div>
+      )}
     </div>
   )
 }
