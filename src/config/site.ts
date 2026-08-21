@@ -1,3 +1,10 @@
+/**
+ * Phone contact is temporarily hidden site-wide. The real values are parked in
+ * `src/config/contact-archive.ts` — restore them into `phone` and
+ * `whatsappNumber` below and flip this to true to bring it back.
+ */
+export const CONTACT_PHONE_ENABLED: boolean = false
+
 export const siteConfig = {
   name: 'Veylix Staffing',
   shortName: 'Veylix',
@@ -6,8 +13,8 @@ export const siteConfig = {
     'Staffing for teams that care who they hire. Permanent placement, contract staffing, and executive search across the United States and Canada.',
   url: 'https://www.veylixstaffing.com',
   email: 'contact@veylixstaffing.com',
-  phone: '+1 (484) 964-9338',
-  whatsappNumber: '14849649338',
+  phone: '',
+  whatsappNumber: '',
   address: 'Cheyenne, Wyoming, USA',
   foundedYear: 2016,
   officeHours: 'Monday – Friday, 9:00 AM – 6:00 PM EST',

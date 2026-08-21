@@ -35,7 +35,7 @@ export default function FAQSection(): React.ReactNode {
             actually ask us.
           </h2>
           <p className="mt-4 font-body text-base leading-relaxed text-vx-muted">
-            If something isn&apos;t covered here, just call us. We pick up.
+            If something isn&apos;t covered here, just message us. We reply fast.
           </p>
           <div className="mt-8">
             <MagneticButton href="/contact" className="btn-primary text-sm">
@@ -65,7 +65,7 @@ export default function FAQSection(): React.ReactNode {
               Questions people actually ask us.
             </h2>
             <p className="mt-4 font-body text-base leading-relaxed text-vx-muted">
-              If something isn&apos;t covered here, just call us. We pick up.
+              If something isn&apos;t covered here, just message us. We reply fast.
             </p>
           </div>
           {FAQ_ITEMS.map((item, index) => {

@@ -7,7 +7,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import MagneticButton from '@/components/ui/MagneticButton'
-import { siteConfig } from '@/config/site'
+import { CONTACT_PHONE_ENABLED, siteConfig } from '@/config/site'
 import { PROCESS_STEPS, type ProcessStep } from '@/constants/sections/process'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
@@ -263,15 +263,17 @@ export default function ProcessSection(): React.ReactNode {
         <MagneticButton href="/contact" className="btn-primary hover:shadow-glow-blue">
           Start the Process →
         </MagneticButton>
-        <p className="mt-3 text-[13px] text-white/40">
-          or call us directly:{' '}
-          <a
-            href={`tel:${siteConfig.phone.replace(/\D/g, '')}`}
-            className="text-white/60 transition-colors hover:text-white"
-          >
-            {siteConfig.phone}
-          </a>
-        </p>
+        {CONTACT_PHONE_ENABLED && (
+          <p className="mt-3 text-[13px] text-white/40">
+            or call us directly:{' '}
+            <a
+              href={`tel:${siteConfig.phone.replace(/\D/g, '')}`}
+              className="text-white/60 transition-colors hover:text-white"
+            >
+              {siteConfig.phone}
+            </a>
+          </p>
+        )}
       </div>
     </section>
   )

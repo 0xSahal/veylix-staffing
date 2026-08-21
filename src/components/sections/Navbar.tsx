@@ -12,7 +12,7 @@ import MagneticButton from '@/components/ui/MagneticButton'
 import VeylixLogo from '@/components/ui/VeylixLogo'
 import { navItems, type NavItem } from '@/config/navigation'
 import { isActivePath } from '@/config/routes'
-import { siteConfig } from '@/config/site'
+import { CONTACT_PHONE_ENABLED, siteConfig } from '@/config/site'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { useScrolled } from '@/hooks/useScrolled'
 import { cn } from '@/lib/utils'
@@ -295,13 +295,15 @@ export default function Navbar(): React.ReactNode {
             </nav>
 
             <div className="mt-10 flex flex-col gap-2">
-              <a
-                href={`tel:${siteConfig.phone.replace(/\D/g, '')}`}
-                className="flex items-center gap-2 text-sm text-white/40"
-              >
-                <Phone size={14} />
-                {siteConfig.phone}
-              </a>
+              {CONTACT_PHONE_ENABLED && (
+                <a
+                  href={`tel:${siteConfig.phone.replace(/\D/g, '')}`}
+                  className="flex items-center gap-2 text-sm text-white/40"
+                >
+                  <Phone size={14} />
+                  {siteConfig.phone}
+                </a>
+              )}
               <a
                 href={`mailto:${siteConfig.email}`}
                 className="flex items-center gap-2 text-sm text-white/40"
