@@ -43,7 +43,7 @@ export default function GlowCard({
         }}
         aria-hidden="true"
       />
-      <div className="relative z-[1]">{children}</div>
+      <div className="relative z-[1] h-full">{children}</div>
     </div>
   )
 }
