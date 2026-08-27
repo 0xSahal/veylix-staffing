@@ -8,9 +8,11 @@ import { ArrowRight, CheckCircle } from 'lucide-react'
 
 import GlowCard from '@/components/ui/GlowCard'
 import MagneticButton from '@/components/ui/MagneticButton'
-import { fadeUp, staggerContainer } from '@/constants/animations'
 import { FEATURE_DOT_POSITIONS, SERVICE_CARDS } from '@/constants/sections/services'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+
+const STAGGER_S = 0.08
+const REVEAL_EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
 
 const STRATEGY_POINTS = [
   'Free 30-minute consultation',
@@ -37,33 +39,54 @@ export default function ServicesSection(): React.ReactNode {
         </p>
       </div>
 
-      <m.div
-        className="container-vx"
-        variants={prefersReduced ? undefined : staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.12 }}
-      >
+      <div className="container-vx">
         <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2">
-          {SERVICE_CARDS.map((card) => (
-            <ServiceCard key={card.title} card={card} />
+          {SERVICE_CARDS.map((card, index) => (
+            <ServiceCard
+              key={card.title}
+              card={card}
+              index={index}
+              prefersReduced={prefersReduced}
+            />
           ))}
         </div>
-        <m.div variants={prefersReduced ? undefined : fadeUp} className="mt-6">
+        <m.div
+          className="mt-6"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={
+            prefersReduced ? { duration: 0 } : { duration: 0.6, ease: REVEAL_EASE }
+          }
+        >
           <FeatureCard />
         </m.div>
-      </m.div>
+      </div>
     </section>
   )
 }
 
 function ServiceCard({
   card,
+  index,
+  prefersReduced,
 }: {
   card: (typeof SERVICE_CARDS)[number]
+  index: number
+  prefersReduced: boolean
 }): React.ReactNode {
   return (
-    <m.div variants={fadeUp} className="h-full">
+    <m.div
+      className="h-full"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={
+        prefersReduced
+          ? { duration: 0 }
+          : { delay: index * STAGGER_S, duration: 0.6, ease: REVEAL_EASE }
+      }
+    >
       <GlowCard className="group h-full overflow-hidden rounded-card border border-vx-border bg-white transition-all duration-300 hover:-translate-y-1 hover:border-vx-blue hover:shadow-card-hover">
         <Link href={card.href} className="flex h-full flex-col p-5 sm:p-6 lg:p-8">
           <div className="relative aspect-[16/10] overflow-hidden rounded-xl">

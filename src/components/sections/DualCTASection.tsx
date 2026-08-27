@@ -59,12 +59,12 @@ export default function DualCTASection(): React.ReactNode {
       <m.div
         ref={leftRef}
         className="dual-cta-left relative min-h-[60vh] w-full overflow-hidden py-16 lg:h-screen lg:w-1/2 lg:py-0"
-        initial={
-          prefersReduced ? false : { opacity: 0, ...(isDesktop ? { x: -60 } : { y: 40 }) }
-        }
+        initial={{ opacity: 0, ...(isDesktop ? { x: -60 } : { y: 40 }) }}
         whileInView={{ opacity: 1, x: 0, y: 0 }}
-        viewport={{ once: true, amount: 0.75 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={
+          prefersReduced ? { duration: 0 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+        }
       >
         <div ref={imageRef} className="absolute inset-0">
           <Image
@@ -119,12 +119,12 @@ export default function DualCTASection(): React.ReactNode {
 
       <m.div
         className="dual-cta-right relative min-h-[60vh] w-full overflow-hidden py-16 lg:h-screen lg:w-1/2 lg:py-0"
-        initial={
-          prefersReduced ? false : { opacity: 0, ...(isDesktop ? { x: 60 } : { y: 40 }) }
-        }
+        initial={{ opacity: 0, ...(isDesktop ? { x: 60 } : { y: 40 }) }}
         whileInView={{ opacity: 1, x: 0, y: 0 }}
-        viewport={{ once: true, amount: 0.75 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={
+          prefersReduced ? { duration: 0 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+        }
       >
         <div
           className="absolute inset-0"
