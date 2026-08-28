@@ -183,14 +183,10 @@ export default function ProcessSection(): React.ReactNode {
               <m.div
                 key={`${step.number}-label`}
                 className="flex justify-center"
-                initial={{ opacity: 0, y: 12 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={
-                  prefersReduced
-                    ? { duration: 0 }
-                    : { delay: index * STAGGER_S, duration: 0.45 }
-                }
+                transition={{ delay: index * STAGGER_S, duration: 0.45 }}
               >
                 <span
                   className="font-display text-[48px] font-bold leading-none text-white/[0.07] xl:text-[56px]"
@@ -210,14 +206,10 @@ export default function ProcessSection(): React.ReactNode {
                 <m.div
                   key={`${step.number}-icon`}
                   className="flex items-center justify-center"
-                  initial={{ opacity: 0, scale: 0.85 }}
+                  initial={prefersReduced ? false : { opacity: 0, scale: 0.85 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, amount: 0.3 }}
-                  transition={
-                    prefersReduced
-                      ? { duration: 0 }
-                      : { delay: index * STAGGER_S + 0.04, duration: 0.45 }
-                  }
+                  transition={{ delay: index * STAGGER_S + 0.04, duration: 0.45 }}
                 >
                   <ProcessIconNode icon={step.icon} size={ICON_SIZE_LG} />
                 </m.div>
@@ -230,14 +222,10 @@ export default function ProcessSection(): React.ReactNode {
               <m.div
                 key={`${step.number}-copy`}
                 className="text-center"
-                initial={{ opacity: 0, y: 14 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={
-                  prefersReduced
-                    ? { duration: 0 }
-                    : { delay: index * STAGGER_S + 0.08, duration: 0.5 }
-                }
+                transition={{ delay: index * STAGGER_S + 0.08, duration: 0.5 }}
               >
                 <ProcessStepCopy step={step} compact />
               </m.div>
@@ -251,14 +239,10 @@ export default function ProcessSection(): React.ReactNode {
             <m.div
               key={step.number}
               className="relative flex flex-col items-center text-center"
-              initial={{ opacity: 0, y: 24 }}
+              initial={prefersReduced ? false : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={
-                prefersReduced
-                  ? { duration: 0 }
-                  : { delay: index * STAGGER_S, duration: 0.5 }
-              }
+              transition={{ delay: index * STAGGER_S, duration: 0.5 }}
             >
               <span
                 className="mb-3 font-display text-5xl font-bold leading-none text-white/[0.07] sm:text-6xl"
