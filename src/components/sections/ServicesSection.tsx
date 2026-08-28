@@ -7,13 +7,18 @@ import { m } from 'framer-motion'
 import { ArrowRight, CheckCircle } from 'lucide-react'
 
 import GlowCard from '@/components/ui/GlowCard'
+import MagneticButton from '@/components/ui/MagneticButton'
 import { fadeUp, staggerContainer } from '@/constants/animations'
-import { SERVICE_CARDS } from '@/constants/sections/services'
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { FEATURE_DOT_POSITIONS, SERVICE_CARDS } from '@/constants/sections/services'
+
+const STRATEGY_POINTS = [
+  'Free 30-minute consultation',
+  '72-hour shortlist on most roles',
+  '90-day placement guarantee',
+  'Written plan back within 48 hours',
+] as const
 
 export default function ServicesSection(): React.ReactNode {
-  const prefersReduced = usePrefersReducedMotion()
-
   return (
     <section className="section-vx bg-vx-off">
       <div className="container-vx mb-12 text-center lg:mb-16">
@@ -29,19 +34,23 @@ export default function ServicesSection(): React.ReactNode {
         </p>
       </div>
 
-      <m.div
-        className="container-vx"
-        variants={prefersReduced ? undefined : staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.12 }}
-      >
-        <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2">
+      <div className="container-vx">
+        <m.div
+          className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 'some' }}
+        >
           {SERVICE_CARDS.map((card) => (
             <ServiceCard key={card.title} card={card} />
           ))}
+        </m.div>
+
+        <div className="mt-6">
+          <FeatureCard />
         </div>
-      </m.div>
+      </div>
     </section>
   )
 }
@@ -95,5 +104,62 @@ function ServiceCard({
         </Link>
       </GlowCard>
     </m.div>
+  )
+}
+
+function FeatureCard(): React.ReactNode {
+  return (
+    <div
+      className="relative overflow-hidden rounded-card border border-white/[0.06] p-6 sm:p-8 lg:p-10"
+      style={{
+        background: 'linear-gradient(160deg, #060E1F 0%, #0D2456 60%, #060E1F 100%)',
+      }}
+    >
+      {FEATURE_DOT_POSITIONS.map((pos) => (
+        <span
+          key={`${pos.top}-${pos.left}`}
+          className="absolute h-1 w-1 rounded-full bg-white/[0.04]"
+          style={{ top: pos.top, left: pos.left }}
+          aria-hidden="true"
+        />
+      ))}
+      <div
+        className="pointer-events-none absolute left-[-50%] top-[40%] h-px w-[200%] rotate-[-35deg]"
+        style={{
+          background:
+            'linear-gradient(90deg, rgba(255,255,255,0.08), transparent, rgba(255,255,255,0.08))',
+        }}
+        aria-hidden="true"
+      />
+      <div className="relative z-[1] grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)_auto] lg:items-center lg:gap-12">
+        <div>
+          <span className="inline-flex rounded-full bg-white/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-white">
+            WORKFORCE STRATEGY
+          </span>
+          <h3 className="mt-4 font-display text-[26px] font-bold leading-tight text-white sm:text-[28px]">
+            Not sure which model fits your team right now?
+          </h3>
+          <p className="mt-3 max-w-lg font-body text-sm leading-relaxed text-white/70">
+            Tell us what&apos;s open now and what&apos;s coming in the next six months.
+            We&apos;ll tell you which engagement model makes sense. Free 30-minute call,
+            no contract required.
+          </p>
+        </div>
+        <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1">
+          {STRATEGY_POINTS.map((item) => (
+            <li key={item} className="flex items-center gap-2.5 text-sm text-white/85">
+              <CheckCircle size={15} className="shrink-0 text-vx-sky" />
+              {item}
+            </li>
+          ))}
+        </ul>
+        <MagneticButton
+          href="/contact"
+          className="w-full justify-center rounded-btn bg-white px-6 py-3.5 text-sm font-semibold text-vx-navy transition-colors duration-300 hover:bg-vx-blue hover:text-white sm:w-auto lg:self-center"
+        >
+          Book a Strategy Call →
+        </MagneticButton>
+      </div>
+    </div>
   )
 }
