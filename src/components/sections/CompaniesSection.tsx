@@ -10,13 +10,10 @@ import {
   companyLogoDisplayWidth,
   type PlacementCompany,
 } from '@/constants/sections/companies'
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 const MARQUEE_SPEED = 40
 
 export default function CompaniesSection(): React.ReactNode {
-  const prefersReduced = usePrefersReducedMotion()
-
   return (
     <section className="section-vx bg-white" aria-labelledby="companies-heading">
       <div className="container-vx mb-14 text-center">
@@ -30,34 +27,22 @@ export default function CompaniesSection(): React.ReactNode {
         </p>
       </div>
 
-      {prefersReduced ? (
-        <div className="container-vx">
-          <ul className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
-            {PLACEMENT_COMPANIES.map((company) => (
-              <li key={company.name}>
-                <CompanyLogo company={company} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <Marquee speed={MARQUEE_SPEED} gradient={false} pauseOnHover>
-          {PLACEMENT_COMPANIES.map((company) => (
-            <div key={company.name} className="mx-10 flex shrink-0 items-center sm:mx-12">
-              <CompanyLogo company={company} />
-            </div>
-          ))}
-          {PLACEMENT_COMPANIES.map((company) => (
-            <div
-              key={`${company.name}-repeat`}
-              className="mx-10 flex shrink-0 items-center sm:mx-12"
-              aria-hidden="true"
-            >
-              <CompanyLogo company={company} />
-            </div>
-          ))}
-        </Marquee>
-      )}
+      <Marquee speed={MARQUEE_SPEED} gradient={false} pauseOnHover>
+        {PLACEMENT_COMPANIES.map((company) => (
+          <div key={company.name} className="mx-10 flex shrink-0 items-center sm:mx-12">
+            <CompanyLogo company={company} />
+          </div>
+        ))}
+        {PLACEMENT_COMPANIES.map((company) => (
+          <div
+            key={`${company.name}-repeat`}
+            className="mx-10 flex shrink-0 items-center sm:mx-12"
+            aria-hidden="true"
+          >
+            <CompanyLogo company={company} />
+          </div>
+        ))}
+      </Marquee>
     </section>
   )
 }

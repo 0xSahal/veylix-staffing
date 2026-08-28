@@ -7,7 +7,6 @@ import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { INDUSTRY_CARDS } from '@/constants/sections/industries'
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 const AUTO_SCROLL_SPEED = 30
 const CARD_GAP_PX = 24
@@ -24,8 +23,6 @@ function easeOutCubic(t: number): number {
 }
 
 export default function IndustriesSection(): React.ReactNode {
-  const prefersReduced = usePrefersReducedMotion()
-
   return (
     <section className="section-vx bg-white">
       <div className="container-vx mb-12 text-center">
@@ -37,19 +34,7 @@ export default function IndustriesSection(): React.ReactNode {
         </p>
       </div>
 
-      {prefersReduced ? (
-        <div className="container-vx">
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {INDUSTRY_CARDS.map((card) => (
-              <li key={card.title}>
-                <IndustryCard card={card} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <IndustriesCarousel />
-      )}
+      <IndustriesCarousel />
     </section>
   )
 }
