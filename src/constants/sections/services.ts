@@ -68,27 +68,3 @@ export const SERVICE_CARDS: ServiceCard[] = [
     ],
   },
 ]
-
-export const FEATURE_DOT_POSITIONS: { top: string; left: string }[] = [
-  { top: '8%', left: '12%' },
-  { top: '15%', left: '78%' },
-  { top: '22%', left: '45%' },
-  { top: '30%', left: '88%' },
-  { top: '38%', left: '22%' },
-  { top: '45%', left: '65%' },
-  { top: '52%', left: '8%' },
-  { top: '58%', left: '92%' },
-  { top: '65%', left: '35%' },
-  { top: '72%', left: '72%' },
-  { top: '78%', left: '18%' },
-  { top: '85%', left: '55%' },
-  { top: '12%', left: '58%' },
-  { top: '42%', left: '48%' },
-  { top: '68%', left: '82%' },
-  { top: '25%', left: '5%' },
-  { top: '55%', left: '38%' },
-  { top: '88%', left: '28%' },
-  { top: '5%', left: '42%' },
-  { top: '48%', left: '15%' },
-  { top: '75%', left: '48%' },
-]
