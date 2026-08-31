@@ -20,7 +20,7 @@ const STRATEGY_POINTS = [
 
 export default function ServicesSection(): React.ReactNode {
   return (
-    <section className="section-vx bg-vx-off">
+    <section className="section-vx bg-vx-off !pb-10 !pt-10 md:!pb-12 md:!pt-12 lg:!pb-16 lg:!pt-16">
       <div className="container-vx mb-12 text-center lg:mb-16">
         <span className="section-label">WHAT WE DO</span>
         <h2 className="heading-h2 mx-auto mt-4 max-w-2xl text-vx-navy">

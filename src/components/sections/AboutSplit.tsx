@@ -82,7 +82,7 @@ export default function AboutSplit(): React.ReactNode {
   }, [prefersReduced])
 
   return (
-    <section ref={sectionRef} className="section-vx bg-white">
+    <section ref={sectionRef} className="section-vx bg-white !pb-10 md:!pb-12 lg:!pb-16">
       <div className="container-vx grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-20">
         <div className="relative h-[300px] sm:h-[400px] lg:h-[560px]">
           <div

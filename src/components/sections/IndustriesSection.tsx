@@ -24,7 +24,7 @@ function easeOutCubic(t: number): number {
 
 export default function IndustriesSection(): React.ReactNode {
   return (
-    <section className="section-vx bg-white">
+    <section className="section-vx bg-white !pt-10 md:!pt-12 lg:!pt-16">
       <div className="container-vx mb-12 text-center">
         <span className="section-label">INDUSTRIES</span>
         <h2 className="heading-h2 mt-4 text-vx-navy">Recruiters who know your field</h2>
