@@ -9,6 +9,18 @@ export const testimonialStats = [
   { value: '4.9★', label: 'Average Rating' },
 ] as const
 
+export const candidateStoryVideo = {
+  src: '/videos/candidate-story.mp4',
+  poster: '/videos/candidate-story-poster.webp',
+  width: 480,
+  height: 864,
+  duration: '2:54',
+  durationIso: 'PT2M54S',
+  uploadDate: '2026-10-14',
+  title: 'A Veylix candidate story',
+  description: `A ${company} candidate shares their job search, how working with ${company} changed it, and how they landed their next role in site reliability engineering.`,
+} as const
+
 export const pageTestimonials: TestimonialData[] = [
   {
     name: 'Colin Lucido',
