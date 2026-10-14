@@ -1,6 +1,7 @@
 import TestimonialCard from '@/components/cards/TestimonialCard'
 import CTABanner from '@/components/layout/CTABanner'
 import PageHero from '@/components/layout/PageHero'
+import VideoTestimonialSection from '@/components/sections/VideoTestimonialSection'
 import { routes } from '@/config/routes'
 import { pageTestimonials, testimonialStats } from '@/constants/pages/testimonials-page'
 import { createPageMetadata } from '@/lib/metadata'
@@ -32,6 +33,8 @@ export default function TestimonialsPage(): React.ReactNode {
           ))}
         </div>
       </section>
+
+      <VideoTestimonialSection />
 
       <section className="section-vx bg-vx-off">
         <div className="container-vx grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

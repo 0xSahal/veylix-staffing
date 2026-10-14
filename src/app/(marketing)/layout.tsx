@@ -1,3 +1,4 @@
+import FloatingContactButton from '@/components/layout/FloatingContactButton'
 import AnnouncementBar from '@/components/sections/AnnouncementBar'
 import Footer from '@/components/sections/Footer'
 import Navbar from '@/components/sections/Navbar'
@@ -15,6 +16,7 @@ export default function MarketingLayout({
       <Navbar />
       {children}
       <Footer />
+      <FloatingContactButton />
     </>
   )
 }
