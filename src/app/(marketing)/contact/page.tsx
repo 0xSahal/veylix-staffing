@@ -1,11 +1,11 @@
-import { Clock, Mail, MapPin, Phone } from 'lucide-react'
+import { Clock, MapPin, Phone } from 'lucide-react'
 
 import ContactForm from '@/components/forms/ContactForm'
 import AccordionFAQ from '@/components/layout/AccordionFAQ'
 import PageHero from '@/components/layout/PageHero'
 import SocialIcon from '@/components/ui/SocialIcon'
 import { routes } from '@/config/routes'
-import { CONTACT_PHONE_ENABLED, siteConfig } from '@/config/site'
+import { siteConfig } from '@/config/site'
 import { contactFaqs } from '@/constants/pages/faq'
 import { createPageMetadata } from '@/lib/metadata'
 
@@ -31,18 +31,16 @@ export default function ContactPage(): React.ReactNode {
           {[
             { icon: MapPin, title: 'Location', body: siteConfig.address },
             {
-              icon: CONTACT_PHONE_ENABLED ? Phone : Mail,
-              title: CONTACT_PHONE_ENABLED ? 'Call or Email' : 'Email Us',
+              icon: Phone,
+              title: 'Call or Email',
               body: (
                 <>
-                  {CONTACT_PHONE_ENABLED && (
-                    <a
-                      href={`tel:${siteConfig.phone.replace(/\D/g, '')}`}
-                      className="block hover:text-vx-blue"
-                    >
-                      {siteConfig.phone}
-                    </a>
-                  )}
+                  <a
+                    href={`tel:${siteConfig.phone.replace(/\D/g, '')}`}
+                    className="block hover:text-vx-blue"
+                  >
+                    {siteConfig.phone}
+                  </a>
                   <a
                     href={`mailto:${siteConfig.email}`}
                     className="block hover:text-vx-blue"
